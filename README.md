@@ -76,6 +76,9 @@ Price - Flight cost.
 * equipment - VARCHAR(3)
 * price - NUMBER
 
+#### Airline
+* id - INTEGER (autoincrement)
+
 #### Airport
 
 Airport ID - Identifier for this airport.
@@ -93,7 +96,7 @@ Tz - database time zone	Timezone in "tz" (Olson) format, eg. "America/Los_Angele
 Type - Type of the airport. 
 Source - Source of this data.
 
-* airportId - INTEGER (autoincrement)
+* id - INTEGER (autoincrement)
 * name - VARCHAR
 * city - VARCHAR
 * country - VARCHAR
