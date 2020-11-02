@@ -47,9 +47,10 @@ The regular user has to register in order to be able to use a Flight advisor.
 
 * id - INTEGER (autoincrement)
 * cityId - INTEGER
-* message - VARCHAR
+* description - VARCHAR
 * createdDate - TIMESTAMP
 * modifiedDate - TIMESTAMP
+* modifiedBy - VARCHAR
 
 #### Route
 
