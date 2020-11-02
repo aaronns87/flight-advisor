@@ -8,21 +8,18 @@ Flight advisor coding challenge
 
 #### Administrator
 
-The administrator is able to :
-●	Add cities. 
-For each city, the name, country and description must be provided.
-●	Import the data for the airports and routes from the datasets given in an attachment.
-Each airport contains city and country name. Don’t import airports and routes if the city doesn’t exist.
+The administrator is able to:
+* Add cities. For each city, the name, country and description must be provided.
+* Import the data for the airports and routes from the datasets given in an attachment. Each airport contains city and country name. Don’t import airports and routes if the city doesn’t exist.
 
 #### Regular user
 
-●	Get all the cities (all the comments should be returned, or if specified, only the x latest comments).
-●	Search for cities by name (all the comments should be returned, or if specified, only the x latest comments).
-●	Add a comment for the city.
-●	Delete a comment .
-●	Update a comment.
-●	Traveling from city A to B, can include many stops, many airports, and it can cost a lot.
-Find the cheapest flight from city A to B, return all the routes included, total price and length. For simplification, each returned route can contain the name of the source and destination cities and price.
+* Get all the cities (all the comments should be returned, or if specified, only the x latest comments).
+*	Search for cities by name (all the comments should be returned, or if specified, only the x latest comments).
+*	Add a comment for the city.
+*	Delete a comment .
+*	Update a comment.
+*	Traveling from city A to B, can include many stops, many airports, and it can cost a lot. Find the cheapest flight from city A to B, return all the routes included, total price and length. For simplification, each returned route can contain the name of the source and destination cities and price.
 
 * Besides comment’s description, each comment should have created and modified date.
 
