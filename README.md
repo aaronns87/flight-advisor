@@ -17,7 +17,7 @@ The administrator is able to:
 * Get all the cities (all the comments should be returned, or if specified, only the x latest comments).
 *	Search for cities by name (all the comments should be returned, or if specified, only the x latest comments).
 *	Add a comment for the city.
-*	Delete a comment .
+*	Delete a comment.
 *	Update a comment.
 *	Traveling from city A to B, can include many stops, many airports, and it can cost a lot. Find the cheapest flight from city A to B, return all the routes included, total price and length. For simplification, each returned route can contain the name of the source and destination cities and price.
 
@@ -36,6 +36,20 @@ The regular user has to register in order to be able to use a Flight advisor.
 * userName - VARCHAR
 * password - VARCHAR
 * salt - VARCHAR
+
+#### City
+
+* id - INTEGER (autoincrement)
+* name - VARCHAR
+* country - VARCHAR
+
+#### Comment
+
+* id - INTEGER (autoincrement)
+* cityId - INTEGER
+* message - VARCHAR
+* createdDate - TIMESTAMP
+* modifiedDate - TIMESTAMP
 
 #### Route
 
