@@ -2,6 +2,8 @@
 
 Flight advisor coding challenge
 
+Create well documented easily runnable REST api for managing airports and flight routes. It is important to have two distinct user roles, ADMINISTRATOR and USER (regular user). Administrator can perform CRUD operations on CITIES, AIRPORTS and FLIGHTS and also import data from files. Regular user (USER) can search cities, perform CRUD operations on COMMENTS and perform searches for travel info between city A and B. 
+
 ## Flight advisor API
 
 ### User roles
