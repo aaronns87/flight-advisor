@@ -107,3 +107,9 @@ Source - Source of this data.
 * tz - VARCHAR
 * type - VARCHAR, ENUM
 * source - VARCHAR
+
+### REST API
+
+Rest API documentation is available VIA swagger.
+
+### Conclusion
