@@ -30,7 +30,7 @@ The administrator is able to:
 Every user has: first name, last name, user name, password and salt.
 The regular user has to register in order to be able to use a Flight advisor.
 
-* id - UUID
+* id - INTEGER (autoincrement)
 * firstName - VARCHAR
 * lastName - VARCHAR
 * userName - VARCHAR
@@ -44,11 +44,22 @@ Airline ID - Identifier for airline.
 Source airport - 3-letter (IATA) or 4-letter (ICAO) code of the source airport.
 Source airport ID - Identifier for source airport.
 Destination airport - 3-letter (IATA) or 4-letter (ICAO) code of the destination airport.
-Destination airport ID - Unique OpenFlights identifier for destination airport .
+Destination airport ID - Unique OpenFlights identifier for destination airport.
 Codeshare - "Y" if this flight is a codeshare, empty otherwise.
 Stops - Number of stops on this flight ("0" for direct).
 Equipment - 3-letter codes for plane type(s) generally used on this flight, separated by spaces.
 Price - Flight cost.
+
+* airline - VARCHAR
+* airlineId - INTEGER
+* sourceAirport - VARCHAR
+* sourceAirportId - INTEGER
+* destinationAirport - VARCHAR
+* destinationAirportId - INTEGER
+* codeShare - VARCHAR(1) NULLABLE
+* stops - INTEGER, DEFAULT 0
+* equipment - VARCHAR(3)
+* price - NUMBER
 
 #### Airport
 
@@ -66,3 +77,18 @@ DST - Daylight savings time. One of E (Europe), A (US/Canada), S (South America)
 Tz - database time zone	Timezone in "tz" (Olson) format, eg. "America/Los_Angeles".
 Type - Type of the airport. 
 Source - Source of this data.
+
+* airportId - INTEGER (autoincrement)
+* name - VARCHAR
+* city - VARCHAR
+* country - VARCHAR
+* iata - VARCHAR(3) NULLABLE
+* icao - VARCHAR(4) NULLABLE
+* latitude - FLOAT
+* longitude - FLOAT
+* altitude - FLOAT
+* timeZone - INTEGER
+* dst - VARCHAR(1)
+* tz - VARCHAR
+* type - VARCHAR, ENUM
+* source - VARCHAR
