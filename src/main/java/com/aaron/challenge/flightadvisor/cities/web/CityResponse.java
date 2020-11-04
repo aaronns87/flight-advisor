@@ -10,8 +10,8 @@ import lombok.Setter;
 @Builder
 public class CityResponse {
 
-    @Schema(description = "City id", example = "1")
-    private Long id;
+    @Schema(description = "City id")
+    private String id;
 
     @Schema(description = "Name", example = "London")
     private String name;

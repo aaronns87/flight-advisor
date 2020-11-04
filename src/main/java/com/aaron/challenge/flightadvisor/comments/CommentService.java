@@ -23,7 +23,7 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
 
-    public Optional<Comment> findById(Long id) {
+    public Optional<Comment> findById(String id) {
         return commentRepository.findById(id);
     }
 

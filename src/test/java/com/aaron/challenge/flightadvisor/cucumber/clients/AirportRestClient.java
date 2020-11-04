@@ -9,7 +9,7 @@ public class AirportRestClient implements BaseRestClient {
 
     private static final String BASE_PATH = "/admin/airports";
 
-    public Long findIdByName(String name) {
+    public String findIdByName(String name) {
         var body = Json.createObjectBuilder()
                 .add("name", name)
                 .build();

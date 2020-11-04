@@ -17,24 +17,24 @@ public class RouteCreate {
     private String airlineCode;
 
     @NotBlank
-    @Schema(description = "Airline Id", example = "1")
-    private Long airlineId;
+    @Schema(description = "Airline Id")
+    private String airlineId;
 
     @NotBlank
     @Schema(description = "Source airport - 3-letter (IATA) or 4-letter (ICAO) code of the source airport", example = "AER")
     private String sourceAirportCode;
 
     @NotBlank
-    @Schema(description = "Source Airport Id", example = "1")
-    private Long sourceAirportId;
+    @Schema(description = "Source Airport Id")
+    private String sourceAirportId;
 
     @NotBlank
     @Schema(description = "Destination airport - 3-letter (IATA) or 4-letter (ICAO) code of the destination airport", example = "KZN")
     private String destinationAirportCode;
 
     @NotBlank
-    @Schema(description = "Destination Airport Id", example = "1")
-    private Long destinationAirportId;
+    @Schema(description = "Destination Airport Id")
+    private String destinationAirportId;
 
     @Schema(description = "Is code share?", example = "true")
     private Boolean codeShare;

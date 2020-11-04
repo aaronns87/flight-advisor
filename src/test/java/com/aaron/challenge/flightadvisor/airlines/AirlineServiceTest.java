@@ -31,9 +31,18 @@ public class AirlineServiceTest {
     public void findById() {
         var airline = new Airline();
 
-        when(airlineRepository.findById(eq(1L))).thenReturn(Optional.of(airline));
+        when(airlineRepository.findById(eq("id"))).thenReturn(Optional.of(airline));
 
-        assertThat(airlineService.findById(1L)).isPresent();
+        assertThat(airlineService.findById("id")).isPresent();
+    }
+
+    @Test
+    public void findByExternalId() {
+        var airline = new Airline();
+
+        when(airlineRepository.findByExternalId(eq(1L))).thenReturn(Optional.of(airline));
+
+        assertThat(airlineService.findByExternalId(1L)).isPresent();
     }
 
     @Test

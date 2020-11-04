@@ -7,6 +7,8 @@ import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class RouteCsvMapper {
 
@@ -32,6 +34,7 @@ public class RouteCsvMapper {
 
     Route toRoute(RouteCsv routeCsv, Airline airline, Airport sourceAirport, Airport destinationAirport) {
         return Route.builder()
+                .id(UUID.randomUUID().toString())
                 .airlineCode(routeCsv.getAirlineCsv().getCode())
                 .airline(airline)
                 .sourceAirportCode(routeCsv.getSourceAirportCode())

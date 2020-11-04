@@ -4,12 +4,15 @@ import com.aaron.challenge.flightadvisor.config.web.GenericRestMapper;
 import com.aaron.challenge.flightadvisor.users.User;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class UserMapper implements GenericRestMapper<User, UserCreate, UserUpdate, UserSearch, UserResponse> {
 
     @Override
     public User postToEntity(UserCreate userCreate) {
         return User.builder()
+                .id(UUID.randomUUID().toString())
                 .role(userCreate.getRole())
                 .firstName(userCreate.getFirstName())
                 .lastName(userCreate.getLastName())

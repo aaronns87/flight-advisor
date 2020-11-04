@@ -33,22 +33,22 @@ public class RouteMapperTest {
     public void postToEntity_airportCreate_airport() {
         var airline = new Airline();
 
-        when(airlineService.findById(eq(1L))).thenReturn(Optional.of(airline));
+        when(airlineService.findById(eq("airlineId"))).thenReturn(Optional.of(airline));
 
         var source = new Airport();
         var destination = new Airport();
 
-        when(airportService.findById(eq(1L))).thenReturn(Optional.of(source));
-        when(airportService.findById(eq(2L))).thenReturn(Optional.of(destination));
+        when(airportService.findById(eq("sourceAirportId"))).thenReturn(Optional.of(source));
+        when(airportService.findById(eq("destinationAirportId"))).thenReturn(Optional.of(destination));
 
 
         var routeCreate = new RouteCreate();
         routeCreate.setAirlineCode("airlineCode");
-        routeCreate.setAirlineId(1L);
+        routeCreate.setAirlineId("airlineId");
         routeCreate.setSourceAirportCode("sourceAirportCode");
-        routeCreate.setSourceAirportId(1L);
+        routeCreate.setSourceAirportId("sourceAirportId");
         routeCreate.setDestinationAirportCode("destinationAirportCode");
-        routeCreate.setDestinationAirportId(2L);
+        routeCreate.setDestinationAirportId("destinationAirportId");
         routeCreate.setStops(1);
         routeCreate.setPrice(10.0f);
         routeCreate.setEquipment("equipment");
@@ -56,6 +56,7 @@ public class RouteMapperTest {
 
         var route = routeMapper.postToEntity(routeCreate);
 
+        assertThat(route.getId()).isNotBlank();
         assertThat(route.getAirlineCode()).isEqualTo("airlineCode");
         assertThat(route.getAirline()).isEqualTo(airline);
         assertThat(route.getSourceAirportCode()).isEqualTo("sourceAirportCode");
@@ -72,21 +73,21 @@ public class RouteMapperTest {
     public void putToEntity_airportCreate_target_airport() {
         var airline = new Airline();
 
-        when(airlineService.findById(eq(1L))).thenReturn(Optional.of(airline));
+        when(airlineService.findById(eq("airlineId"))).thenReturn(Optional.of(airline));
 
         var source = new Airport();
         var destination = new Airport();
 
-        when(airportService.findById(eq(1L))).thenReturn(Optional.of(source));
-        when(airportService.findById(eq(2L))).thenReturn(Optional.of(destination));
+        when(airportService.findById(eq("sourceAirportId"))).thenReturn(Optional.of(source));
+        when(airportService.findById(eq("destinationAirportId"))).thenReturn(Optional.of(destination));
 
         var routeCreate = new RouteCreate();
         routeCreate.setAirlineCode("airlineCode");
-        routeCreate.setAirlineId(1L);
+        routeCreate.setAirlineId("airlineId");
         routeCreate.setSourceAirportCode("sourceAirportCode");
-        routeCreate.setSourceAirportId(1L);
+        routeCreate.setSourceAirportId("sourceAirportId");
         routeCreate.setDestinationAirportCode("destinationAirportCode");
-        routeCreate.setDestinationAirportId(2L);
+        routeCreate.setDestinationAirportId("destinationAirportId");
         routeCreate.setStops(1);
         routeCreate.setPrice(10.0f);
         routeCreate.setEquipment("equipment");
@@ -160,6 +161,7 @@ public class RouteMapperTest {
         var destination = new Airport();
 
         var route = new Route();
+        route.setId("id");
         route.setAirlineCode("airlineCode");
         route.setAirline(airline);
         route.setSourceAirportCode("sourceAirportCode");
@@ -173,6 +175,7 @@ public class RouteMapperTest {
 
         var routeResponse = routeMapper.entityToResponse(route);
 
+        assertThat(routeResponse.getId()).isEqualTo("id");
         assertThat(routeResponse.getAirlineCode()).isEqualTo("airlineCode");
         assertThat(routeResponse.getAirline()).isEqualTo(airline);
         assertThat(routeResponse.getSourceAirportCode()).isEqualTo("sourceAirportCode");

@@ -23,8 +23,12 @@ public class AirportService {
 
     private final AirportRepository airportRepository;
 
-    public Optional<Airport> findById(Long id) {
+    public Optional<Airport> findById(String id) {
         return airportRepository.findById(id);
+    }
+
+    public Optional<Airport> findByExternalId(Long externalId) {
+        return airportRepository.findByExternalId(externalId);
     }
 
     public Airport create(Airport airport) {

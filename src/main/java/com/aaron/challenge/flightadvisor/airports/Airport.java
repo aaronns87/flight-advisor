@@ -2,6 +2,7 @@ package com.aaron.challenge.flightadvisor.airports;
 
 import com.aaron.challenge.flightadvisor.cities.City;
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 
@@ -15,9 +16,12 @@ import javax.persistence.*;
 public class Airport {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @NaturalId
     @Column(nullable = false)
-    private Long id;
+    private String id;
+
+    @Column(unique = true)
+    private Long externalId;
 
     @Column(nullable = false)
     private String name;

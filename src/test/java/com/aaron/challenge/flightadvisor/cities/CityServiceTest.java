@@ -32,9 +32,9 @@ public class CityServiceTest {
     public void findById() {
         var city = new City();
 
-        when(cityRepository.findById(eq(1L))).thenReturn(Optional.of(city));
+        when(cityRepository.findById(eq("id"))).thenReturn(Optional.of(city));
 
-        assertThat(cityService.findById(1L)).isPresent();
+        assertThat(cityService.findById("id")).isPresent();
     }
 
     @Test

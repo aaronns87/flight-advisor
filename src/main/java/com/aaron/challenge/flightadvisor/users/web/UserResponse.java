@@ -11,8 +11,8 @@ import lombok.Setter;
 @Builder
 public class UserResponse {
 
-    @Schema(description = "User id", example = "1")
-    private Long id;
+    @Schema(description = "User id")
+    private String id;
 
     @Schema(description = "User role", example = "ADMIN")
     private Role role;

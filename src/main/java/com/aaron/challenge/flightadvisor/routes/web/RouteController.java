@@ -41,7 +41,7 @@ public class RouteController {
 
     @PutMapping(path = "/{id}")
     @Operation(summary = "Replace existing route", description = "Replace existing route")
-    public RouteResponse replace(@PathVariable Long id, @Valid @RequestBody RouteCreate create) {
+    public RouteResponse replace(@PathVariable String id, @Valid @RequestBody RouteCreate create) {
         log.info("PUT route id {}, route {}", id, create.toString());
 
         return routeService
@@ -58,7 +58,7 @@ public class RouteController {
 
     @PatchMapping(path = "/{id}")
     @Operation(summary = "Partially update existing route", description = "Partially update existing route")
-    public RouteResponse update(@PathVariable Long id, @Valid @RequestBody RouteUpdate update) {
+    public RouteResponse update(@PathVariable String id, @Valid @RequestBody RouteUpdate update) {
         log.info("PATCH route id {}, route {}", id, update.toString());
 
         return routeService
@@ -75,7 +75,7 @@ public class RouteController {
 
     @GetMapping(path = "/{id}")
     @Operation(summary = "Find route", description = "Find route by id.")
-    public RouteResponse findOne(@PathVariable Long id) {
+    public RouteResponse findOne(@PathVariable String id) {
         log.info("GET route with id {}", id);
 
         return routeService
@@ -111,7 +111,7 @@ public class RouteController {
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete existing route", description = "Delete existing route.")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable String id) {
         log.info("DELETE route with id {}", id);
 
         routeService

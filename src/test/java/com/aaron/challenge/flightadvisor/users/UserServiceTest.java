@@ -34,9 +34,9 @@ public class UserServiceTest {
     public void findById() {
         var user = new User();
 
-        when(userRepository.findById(eq(1L))).thenReturn(Optional.of(user));
+        when(userRepository.findById(eq("id"))).thenReturn(Optional.of(user));
 
-        assertThat(userService.findById(1L)).isPresent();
+        assertThat(userService.findById("id")).isPresent();
     }
 
     @Test

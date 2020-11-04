@@ -32,9 +32,9 @@ public class RouteServiceTest {
     public void findById() {
         var route = new Route();
 
-        when(routeRepository.findById(eq(1L))).thenReturn(Optional.of(route));
+        when(routeRepository.findById(eq("id"))).thenReturn(Optional.of(route));
 
-        assertThat(routeService.findById(1L)).isPresent();
+        assertThat(routeService.findById("id")).isPresent();
     }
 
     @Test

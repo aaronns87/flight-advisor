@@ -9,7 +9,7 @@ public class CityRestClient implements BaseRestClient {
 
     private static final String BASE_PATH = "/admin/cities";
 
-    public Long findIdByName(String name) {
+    public String findIdByName(String name) {
         var body = Json.createObjectBuilder()
                 .add("name", name)
                 .build();

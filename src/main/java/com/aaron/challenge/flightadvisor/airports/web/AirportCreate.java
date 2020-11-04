@@ -22,8 +22,8 @@ public class AirportCreate {
     private String name;
 
     @NotNull
-    @Schema(description = "City Id", example = "1")
-    private Long cityId;
+    @Schema(description = "City Id")
+    private String cityId;
 
     @Schema(description = "IATA - 3-letter IATA code", example = "GKA")
     private String iata;

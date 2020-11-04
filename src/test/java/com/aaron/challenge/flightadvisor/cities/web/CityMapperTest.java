@@ -22,6 +22,7 @@ public class CityMapperTest {
 
         var city = cityMapper.postToEntity(cityCreate);
 
+        assertThat(city.getId()).isNotBlank();
         assertThat(city.getName()).isEqualTo("name");
         assertThat(city.getCountry()).isEqualTo("country");
     }
@@ -69,11 +70,13 @@ public class CityMapperTest {
     @Test
     public void entityToResponse_city_cityResponse() {
         var city = new City();
+        city.setId("id");
         city.setName("name");
         city.setCountry("country");
 
         var cityResponse = cityMapper.entityToResponse(city);
 
+        assertThat(cityResponse.getId()).isEqualTo("id");
         assertThat(cityResponse.getName()).isEqualTo("name");
         assertThat(cityResponse.getCountry()).isEqualTo("country");
     }

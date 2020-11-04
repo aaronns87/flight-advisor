@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @Builder
 public class CommentResponse {
 
-    @Schema(description = "Comment id", example = "1")
-    private Long id;
+    @Schema(description = "Comment id")
+    private String id;
 
     @Schema(description = "City", example = "New York")
     private City city;

@@ -1,6 +1,7 @@
 package com.aaron.challenge.flightadvisor.users;
 
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 
@@ -15,9 +16,9 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @NaturalId
     @Column(nullable = false)
-    private Long id;
+    private String id;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

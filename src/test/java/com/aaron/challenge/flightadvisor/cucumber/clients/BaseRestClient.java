@@ -52,22 +52,18 @@ public interface BaseRestClient {
                 .then();
     }
 
-    default Long findId(JsonObject body) {
-        return Long.parseLong(
-                search(body)
+    default String findId(JsonObject body) {
+        return search(body)
                         .extract()
                         .path("content[0].id")
-                        .toString()
-        );
+                        .toString();
     }
 
-    default Long findFirstId() {
-        return Long.parseLong(
-                findAll()
+    default String findFirstId() {
+        return findAll()
                         .extract()
                         .path("content[0].id")
-                        .toString()
-        );
+                        .toString();
     }
 
     default int countAll() {

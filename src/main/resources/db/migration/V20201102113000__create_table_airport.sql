@@ -1,7 +1,8 @@
 CREATE TABLE airport (
-  id BIGINT PRIMARY KEY NOT NULL,
+  id VARCHAR(36) PRIMARY KEY NOT NULL,
+  external_id BIGINT UNIQUE,
   name VARCHAR(255) NOT NULL,
-  city_id BIGINT NOT NULL,
+  city_id VARCHAR(36) NOT NULL,
   iata VARCHAR(3),
   icao VARCHAR(4),
   latitude VARCHAR(255),

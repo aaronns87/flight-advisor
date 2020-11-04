@@ -4,12 +4,15 @@ import com.aaron.challenge.flightadvisor.cities.City;
 import com.aaron.challenge.flightadvisor.config.web.GenericRestMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class CityMapper implements GenericRestMapper<City, CityCreate, CityUpdate, CitySearch, CityResponse> {
 
     @Override
     public City postToEntity(CityCreate cityCreate) {
         return City.builder()
+                .id(UUID.randomUUID().toString())
                 .name(cityCreate.getName())
                 .country(cityCreate.getCountry())
                 .build();

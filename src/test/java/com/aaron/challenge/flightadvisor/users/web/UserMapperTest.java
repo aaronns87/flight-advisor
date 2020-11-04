@@ -26,6 +26,7 @@ public class UserMapperTest {
 
         var user = userMapper.postToEntity(userCreate);
 
+        assertThat(user.getId()).isNotBlank();
         assertThat(user.getUserName()).isEqualTo("userName");
         assertThat(user.getPassword()).isEqualTo("password");
         assertThat(user.getFirstName()).isEqualTo("firstName");
@@ -92,6 +93,7 @@ public class UserMapperTest {
     @Test
     public void entityToResponse_user_userResponse() {
         var user = new User();
+        user.setId("id");
         user.setUserName("userName");
         user.setFirstName("firstName");
         user.setLastName("lastName");
@@ -100,6 +102,7 @@ public class UserMapperTest {
 
         var userResponse = userMapper.entityToResponse(user);
 
+        assertThat(userResponse.getId()).isEqualTo("id");
         assertThat(userResponse.getUserName()).isEqualTo("userName");
         assertThat(userResponse.getFirstName()).isEqualTo("firstName");
         assertThat(userResponse.getLastName()).isEqualTo("lastName");

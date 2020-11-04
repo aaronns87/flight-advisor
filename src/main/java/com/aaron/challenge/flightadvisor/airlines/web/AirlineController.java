@@ -41,7 +41,7 @@ public class AirlineController {
 
     @PutMapping(path = "/{id}")
     @Operation(summary = "Replace existing airline", description = "Replace existing airline")
-    public AirlineResponse replace(@PathVariable Long id, @Valid @RequestBody AirlineCreate create) {
+    public AirlineResponse replace(@PathVariable String id, @Valid @RequestBody AirlineCreate create) {
         log.info("PUT airline id {}, airport {}", id, create.toString());
 
         return airlineService
@@ -58,7 +58,7 @@ public class AirlineController {
 
     @PatchMapping(path = "/{id}")
     @Operation(summary = "Partially update existing airline", description = "Partially update existing airline")
-    public AirlineResponse update(@PathVariable Long id, @Valid @RequestBody AirlineUpdate update) {
+    public AirlineResponse update(@PathVariable String id, @Valid @RequestBody AirlineUpdate update) {
         log.info("PATCH airline id {}, airline {}", id, update.toString());
 
         return airlineService
@@ -75,7 +75,7 @@ public class AirlineController {
 
     @GetMapping(path = "/{id}")
     @Operation(summary = "Find airline", description = "Find airline by id.")
-    public AirlineResponse findOne(@PathVariable Long id) {
+    public AirlineResponse findOne(@PathVariable String id) {
         log.info("GET airline with id {}", id);
 
         return airlineService
@@ -111,7 +111,7 @@ public class AirlineController {
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete existing airline", description = "Delete existing airline.")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable String id) {
         log.info("DELETE airline with id {}", id);
 
         airlineService

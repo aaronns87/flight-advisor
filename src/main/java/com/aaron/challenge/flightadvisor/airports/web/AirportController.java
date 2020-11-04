@@ -41,7 +41,7 @@ public class AirportController {
 
     @PutMapping(path = "/{id}")
     @Operation(summary = "Replace existing airport", description = "Replace existing airport")
-    public AirportResponse replace(@PathVariable Long id, @Valid @RequestBody AirportCreate create) {
+    public AirportResponse replace(@PathVariable String id, @Valid @RequestBody AirportCreate create) {
         log.info("PUT airport id {}, airport {}", id, create.toString());
 
         return airportService
@@ -58,7 +58,7 @@ public class AirportController {
 
     @PatchMapping(path = "/{id}")
     @Operation(summary = "Partially update existing airport", description = "Partially update existing airport")
-    public AirportResponse update(@PathVariable Long id, @Valid @RequestBody AirportUpdate update) {
+    public AirportResponse update(@PathVariable String id, @Valid @RequestBody AirportUpdate update) {
         log.info("PATCH airport id {}, airport {}", id, update.toString());
 
         return airportService
@@ -75,7 +75,7 @@ public class AirportController {
 
     @GetMapping(path = "/{id}")
     @Operation(summary = "Find airport", description = "Find airport by id.")
-    public AirportResponse findOne(@PathVariable Long id) {
+    public AirportResponse findOne(@PathVariable String id) {
         log.info("GET airport with id {}", id);
 
         return airportService
@@ -111,7 +111,7 @@ public class AirportController {
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete existing airport", description = "Delete existing airport.")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable String id) {
         log.info("DELETE airport with id {}", id);
 
         airportService

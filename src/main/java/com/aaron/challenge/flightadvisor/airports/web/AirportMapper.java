@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 
 @Component
@@ -19,6 +21,7 @@ public class AirportMapper implements GenericRestMapper<Airport, AirportCreate, 
     @Override
     public Airport postToEntity(AirportCreate airportCreate) {
         return Airport.builder()
+                .id(UUID.randomUUID().toString())
                 .name(airportCreate.getName())
                 .city(findCityOrThrow(airportCreate.getCityId()))
                 .iata(airportCreate.getIata())
@@ -90,6 +93,7 @@ public class AirportMapper implements GenericRestMapper<Airport, AirportCreate, 
     public AirportResponse entityToResponse(Airport airport) {
         return AirportResponse.builder()
                 .id(airport.getId())
+                .externalId(airport.getExternalId())
                 .name(airport.getName())
                 .city(airport.getCity())
                 .iata(airport.getIata())
@@ -105,7 +109,7 @@ public class AirportMapper implements GenericRestMapper<Airport, AirportCreate, 
                 .build();
     }
 
-    private City findCityOrThrow(Long id) {
+    private City findCityOrThrow(String id) {
         return cityService.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "City with id " + id + " not found."));
     }

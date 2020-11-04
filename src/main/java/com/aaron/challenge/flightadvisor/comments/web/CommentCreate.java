@@ -13,8 +13,8 @@ import javax.validation.constraints.NotBlank;
 public class CommentCreate {
 
     @NotBlank
-    @Schema(description = "City Id", example = "1")
-    private Long cityId;
+    @Schema(description = "City Id")
+    private String cityId;
 
     @NotBlank
     @Schema(description = "Description", example = "No flights due to bad weather.")

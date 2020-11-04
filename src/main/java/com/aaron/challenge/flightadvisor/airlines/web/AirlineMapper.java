@@ -4,12 +4,15 @@ import com.aaron.challenge.flightadvisor.airlines.Airline;
 import com.aaron.challenge.flightadvisor.config.web.GenericRestMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class AirlineMapper implements GenericRestMapper<Airline, AirlineCreate, AirlineUpdate, AirlineSearch, AirlineResponse> {
 
     @Override
     public Airline postToEntity(AirlineCreate airlineCreate) {
         return Airline.builder()
+                .id(UUID.randomUUID().toString())
                 .code(airlineCreate.getCode())
                 .build();
     }
@@ -39,6 +42,7 @@ public class AirlineMapper implements GenericRestMapper<Airline, AirlineCreate, 
     public AirlineResponse entityToResponse(Airline airline) {
         return AirlineResponse.builder()
                 .id(airline.getId())
+                .externalId(airline.getExternalId())
                 .code(airline.getCode())
                 .build();
     }

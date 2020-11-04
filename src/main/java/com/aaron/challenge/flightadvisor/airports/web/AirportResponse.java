@@ -14,7 +14,10 @@ import lombok.Setter;
 public class AirportResponse {
 
     @Schema(description = "Airport id", example = "1")
-    private Long id;
+    private String id;
+
+    @Schema(description = "Airport external id", example = "1")
+    private Long externalId;
 
     @Schema(description = "Airport name", example = "London airport")
     private String name;

@@ -29,14 +29,15 @@ public class CommentMapperTest {
     public void postToEntity_commentCreate_comment() {
         var city = new City();
 
-        when(cityService.findById(eq(1L))).thenReturn(Optional.of(city));
+        when(cityService.findById(eq("cityId"))).thenReturn(Optional.of(city));
 
         var commentCreate = new CommentCreate();
-        commentCreate.setCityId(1L);
+        commentCreate.setCityId("cityId");
         commentCreate.setDescription("description");
 
         var comment = commentMapper.postToEntity(commentCreate);
 
+        assertThat(comment.getId()).isNotBlank();
         assertThat(comment.getCity()).isEqualTo(city);
         assertThat(comment.getDescription()).isEqualTo("description");
         assertThat(comment.getCreatedDate()).isNotNull();
@@ -47,10 +48,10 @@ public class CommentMapperTest {
     public void putToEntity_commentCreate_target_comment() {
         var city = new City();
 
-        when(cityService.findById(eq(1L))).thenReturn(Optional.of(city));
+        when(cityService.findById(eq("cityId"))).thenReturn(Optional.of(city));
 
         var commentCreate = new CommentCreate();
-        commentCreate.setCityId(1L);
+        commentCreate.setCityId("cityId");
         commentCreate.setDescription("description");
 
         var target = new Comment();
@@ -94,6 +95,7 @@ public class CommentMapperTest {
         var city = new City();
 
         var comment = new Comment();
+        comment.setId("id");
         comment.setCity(city);
         comment.setDescription("description");
         comment.setCreatedDate(LocalDateTime.now());
@@ -101,6 +103,7 @@ public class CommentMapperTest {
 
         var commentResponse = commentMapper.entityToResponse(comment);
 
+        assertThat(commentResponse.getId()).isEqualTo("id");
         assertThat(commentResponse.getCity()).isEqualTo(city);
         assertThat(commentResponse.getDescription()).isEqualTo("description");
         assertThat(commentResponse.getCreatedDate()).isNotNull();

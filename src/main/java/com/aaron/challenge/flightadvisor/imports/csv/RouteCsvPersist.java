@@ -43,10 +43,10 @@ public class RouteCsvPersist {
                 findOrCreateAirline(
                         routeCsv.getAirlineCsv()
                 ),
-                findAirport(
+                findAirportByExternalId(
                         routeCsv.getSourceAirportId()
                 ),
-                findAirport(
+                findAirportByExternalId(
                         routeCsv.getDestinationAirportId()
                 )
         );
@@ -57,15 +57,15 @@ public class RouteCsvPersist {
     }
 
     Airline findOrCreateAirline(AirlineCsv airlineCsv) {
-        return findAirline(
+        return findAirlineByExternalId(
                 airlineCsv.getId()
         ).orElseGet(
                 () -> create(airlineCsv)
         );
     }
 
-    private Optional<Airline> findAirline(Long id) {
-        return airlineService.findById(id);
+    private Optional<Airline> findAirlineByExternalId(Long externalId) {
+        return airlineService.findByExternalId(externalId);
     }
 
     private Airline create(AirlineCsv airlineCsv) {
@@ -82,10 +82,10 @@ public class RouteCsvPersist {
         return airlineService.create(airline);
     }
 
-    Airport findAirport(Long id) {
-        return airportService.findById(id)
+    Airport findAirportByExternalId(Long externalId) {
+        return airportService.findByExternalId(externalId)
                 .orElseThrow(() -> {
-                    throw new EntityNotFoundException("Airport with id " + id + " not found.");
+                    throw new EntityNotFoundException("Airport with external id " + externalId + " not found.");
                 });
     }
 }

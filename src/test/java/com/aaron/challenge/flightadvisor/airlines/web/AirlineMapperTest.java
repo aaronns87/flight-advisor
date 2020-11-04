@@ -22,6 +22,7 @@ public class AirlineMapperTest {
 
         var airline = airlineMapper.postToEntity(airlineCreate);
 
+        assertThat(airline.getId()).isNotBlank();
         assertThat(airline.getCode()).isEqualTo("code");
     }
 
@@ -62,10 +63,14 @@ public class AirlineMapperTest {
     @Test
     public void entityToResponse_airline_airlineResponse() {
         var airline = new Airline();
+        airline.setId("id");
+        airline.setExternalId(1L);
         airline.setCode("code");
 
         var airlineResponse = airlineMapper.entityToResponse(airline);
 
+        assertThat(airlineResponse.getId()).isEqualTo("id");
+        assertThat(airlineResponse.getExternalId()).isEqualTo(1L);
         assertThat(airlineResponse.getCode()).isEqualTo("code");
     }
 }

@@ -12,8 +12,8 @@ import lombok.Setter;
 @Builder
 public class RouteResponse {
 
-    @Schema(description = "Route id", example = "1")
-    private Long id;
+    @Schema(description = "Route id")
+    private String id;
 
     @Schema(description = "2-letter (IATA) or 3-letter (ICAO) code of the airline", example = "2B")
     private String airlineCode;

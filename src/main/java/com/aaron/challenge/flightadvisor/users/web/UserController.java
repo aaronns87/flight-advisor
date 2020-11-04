@@ -41,7 +41,7 @@ public class UserController {
 
     @PutMapping(path = "/{id}")
     @Operation(summary = "Replace existing user", description = "Replace existing user")
-    public UserResponse replace(@PathVariable Long id, @Valid @RequestBody UserCreate create) {
+    public UserResponse replace(@PathVariable String id, @Valid @RequestBody UserCreate create) {
         log.info("PUT user id {}, user {}", id, create.toString());
 
         return userService
@@ -58,7 +58,7 @@ public class UserController {
 
     @PatchMapping(path = "/{id}")
     @Operation(summary = "Partially update existing user", description = "Partially update existing user")
-    public UserResponse update(@PathVariable Long id, @Valid @RequestBody UserUpdate update) {
+    public UserResponse update(@PathVariable String id, @Valid @RequestBody UserUpdate update) {
         log.info("PATCH user id {}, user {}", id, update.toString());
 
         return userService
@@ -75,7 +75,7 @@ public class UserController {
 
     @GetMapping(path = "/{id}")
     @Operation(summary = "Find user", description = "Find user by id.")
-    public UserResponse findOne(@PathVariable Long id) {
+    public UserResponse findOne(@PathVariable String id) {
         log.info("GET user with id {}", id);
 
         return userService
@@ -111,7 +111,7 @@ public class UserController {
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete existing user", description = "Delete existing user.")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable String id) {
         log.info("DELETE user with id {}", id);
 
         userService

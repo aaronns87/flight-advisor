@@ -84,7 +84,7 @@ public class AirportSteps {
                 .body("content.latitude", contains(latitude))
                 .body("content.longitude", contains(longitude))
                 .body("content.altitude[0]", equalTo(Integer.parseInt(altitude)))
-                .body("content.timeZone[0]", equalTo(Integer.parseInt(timeZone)))
+                .body("content.timeZone[0]", equalTo(Float.parseFloat(timeZone)))
                 .body("content.dst", contains(dst))
                 .body("content.tz", contains(tz))
                 .body("content.type", contains(type))

@@ -23,7 +23,7 @@ public class RouteService {
 
     private final RouteRepository routeRepository;
 
-    public Optional<Route> findById(Long id) {
+    public Optional<Route> findById(String id) {
         return routeRepository.findById(id);
     }
 

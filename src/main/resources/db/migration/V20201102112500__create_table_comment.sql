@@ -1,6 +1,6 @@
 CREATE TABLE comment (
-  id BIGINT PRIMARY KEY NOT NULL,
-  city_id BIGINT NOT NULL,
+  id VARCHAR(36) PRIMARY KEY NOT NULL,
+  city_id VARCHAR(36) NOT NULL,
   description TEXT NOT NULL,
   created_date TIMESTAMP NOT NULL,
   modified_date TIMESTAMP NOT NULL,

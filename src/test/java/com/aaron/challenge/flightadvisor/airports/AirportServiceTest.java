@@ -32,9 +32,18 @@ public class AirportServiceTest {
     public void findById() {
         var airport = new Airport();
 
-        when(airportRepository.findById(eq(1L))).thenReturn(Optional.of(airport));
+        when(airportRepository.findById(eq("id"))).thenReturn(Optional.of(airport));
 
-        assertThat(airportService.findById(1L)).isPresent();
+        assertThat(airportService.findById("id")).isPresent();
+    }
+
+    @Test
+    public void findByExternalId() {
+        var airport = new Airport();
+
+        when(airportRepository.findByExternalId(eq(1L))).thenReturn(Optional.of(airport));
+
+        assertThat(airportService.findByExternalId(1L)).isPresent();
     }
 
     @Test

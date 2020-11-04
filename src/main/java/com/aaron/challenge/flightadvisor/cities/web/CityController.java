@@ -41,7 +41,7 @@ public class CityController {
 
     @PutMapping(path = "/{id}")
     @Operation(summary = "Replace existing city", description = "Replace existing city")
-    public CityResponse replace(@PathVariable Long id, @Valid @RequestBody CityCreate create) {
+    public CityResponse replace(@PathVariable String id, @Valid @RequestBody CityCreate create) {
         log.info("PUT city id {}, city {}", id, create.toString());
 
         return cityService
@@ -58,7 +58,7 @@ public class CityController {
 
     @PatchMapping(path = "/{id}")
     @Operation(summary = "Partially update existing city", description = "Partially update existing city")
-    public CityResponse update(@PathVariable Long id, @Valid @RequestBody CityUpdate update) {
+    public CityResponse update(@PathVariable String id, @Valid @RequestBody CityUpdate update) {
         log.info("PATCH city id {}, city {}", id, update.toString());
 
         return cityService
@@ -75,7 +75,7 @@ public class CityController {
 
     @GetMapping(path = "/{id}")
     @Operation(summary = "Find city", description = "Find city by id.")
-    public CityResponse findOne(@PathVariable Long id) {
+    public CityResponse findOne(@PathVariable String id) {
         log.info("GET city with id {}", id);
 
         return cityService
@@ -111,7 +111,7 @@ public class CityController {
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete existing city", description = "Delete existing city.")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable String id) {
         log.info("DELETE city with id {}", id);
 
         cityService

@@ -1,6 +1,7 @@
 package com.aaron.challenge.flightadvisor.airlines;
 
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 
@@ -14,8 +15,12 @@ import javax.persistence.*;
 public class Airline {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    @NaturalId
+    @Column(nullable = false)
+    private String id;
+
+    @Column(unique = true)
+    private Long externalId;
 
     @Column(nullable = false)
     private String code;

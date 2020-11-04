@@ -23,8 +23,12 @@ public class AirlineService {
 
     private final AirlineRepository airlineRepository;
 
-    public Optional<Airline> findById(Long id) {
+    public Optional<Airline> findById(String id) {
         return airlineRepository.findById(id);
+    }
+
+    public Optional<Airline> findByExternalId(Long externalId) {
+        return airlineRepository.findByExternalId(externalId);
     }
 
     public Airline create(Airline airline) {

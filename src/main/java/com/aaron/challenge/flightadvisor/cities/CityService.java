@@ -23,7 +23,7 @@ public class CityService {
 
     private final CityRepository cityRepository;
 
-    public Optional<City> findById(Long id) {
+    public Optional<City> findById(String id) {
         return cityRepository.findById(id);
     }
 

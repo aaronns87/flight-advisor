@@ -10,7 +10,7 @@ public class AirlineRestClient implements BaseRestClient {
 
     private static final String BASE_PATH = "/admin/airlines";
 
-    public Long findIdByCode(String code) {
+    public String findIdByCode(String code) {
         var body = Json.createObjectBuilder()
                 .add("code", code)
                 .build();

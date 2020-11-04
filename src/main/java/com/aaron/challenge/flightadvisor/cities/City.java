@@ -1,6 +1,7 @@
 package com.aaron.challenge.flightadvisor.cities;
 
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 
@@ -14,9 +15,9 @@ import javax.persistence.*;
 public class City {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @NaturalId
     @Column(nullable = false)
-    private Long id;
+    private String id;
 
     @Column(nullable = false)
     private String name;

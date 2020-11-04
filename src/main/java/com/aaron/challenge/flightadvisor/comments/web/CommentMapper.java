@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 
 @RequiredArgsConstructor
@@ -22,6 +23,7 @@ public class CommentMapper implements GenericRestMapper<Comment, CommentCreate, 
     @Override
     public Comment postToEntity(CommentCreate commentCreate) {
         return Comment.builder()
+                .id(UUID.randomUUID().toString())
                 .city(findCityOrThrow(commentCreate.getCityId()))
                 .description(commentCreate.getDescription())
                 .createdDate(LocalDateTime.now())
@@ -65,7 +67,7 @@ public class CommentMapper implements GenericRestMapper<Comment, CommentCreate, 
                 .build();
     }
 
-    private City findCityOrThrow(Long id) {
+    private City findCityOrThrow(String id) {
         return cityService.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "City with id " + id + " not found."));
     }

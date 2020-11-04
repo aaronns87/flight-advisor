@@ -3,6 +3,7 @@ package com.aaron.challenge.flightadvisor.routes;
 import com.aaron.challenge.flightadvisor.airlines.Airline;
 import com.aaron.challenge.flightadvisor.airports.Airport;
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 
@@ -16,9 +17,9 @@ import javax.persistence.*;
 public class Route {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @NaturalId
     @Column(nullable = false)
-    private Long id;
+    private String id;
 
     @Column(nullable = false)
     private String airlineCode;

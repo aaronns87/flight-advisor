@@ -10,6 +10,8 @@ import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 
 @Component
@@ -43,7 +45,8 @@ public class AirportCsvMapper {
 
     Airport toAirport(AirportCsv airportCsv, City city) {
         return Airport.builder()
-                .id(airportCsv.getId())  // We are mapping ids during CSV import since they are provided in CSV
+                .id(UUID.randomUUID().toString())
+                .externalId(airportCsv.getId())  // We are mapping external ids during CSV import since they are provided in CSV
                 .name(airportCsv.getName())
                 .city(city)
                 .iata(airportCsv.getIata())

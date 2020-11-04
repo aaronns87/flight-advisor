@@ -31,9 +31,9 @@ public class CommentServiceTest {
     public void findById() {
         var comment = new Comment();
 
-        when(commentRepository.findById(eq(1L))).thenReturn(Optional.of(comment));
+        when(commentRepository.findById(eq("id"))).thenReturn(Optional.of(comment));
 
-        assertThat(commentService.findById(1L)).isPresent();
+        assertThat(commentService.findById("id")).isPresent();
     }
 
     @Test

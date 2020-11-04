@@ -41,7 +41,7 @@ public class CommentController {
 
     @PutMapping(path = "/{id}")
     @Operation(summary = "Replace existing comment", description = "Replace existing comment")
-    public CommentResponse replace(@PathVariable Long id, @Valid @RequestBody CommentCreate create) {
+    public CommentResponse replace(@PathVariable String id, @Valid @RequestBody CommentCreate create) {
         log.info("PUT comment id {}, comment {}", id, create.toString());
 
         return commentService
@@ -58,7 +58,7 @@ public class CommentController {
 
     @PatchMapping(path = "/{id}")
     @Operation(summary = "Partially update existing comment", description = "Partially update existing comment")
-    public CommentResponse update(@PathVariable Long id, @Valid @RequestBody CommentUpdate update) {
+    public CommentResponse update(@PathVariable String id, @Valid @RequestBody CommentUpdate update) {
         log.info("PATCH comment id {}, comment {}", id, update.toString());
 
         return commentService
@@ -75,7 +75,7 @@ public class CommentController {
 
     @GetMapping(path = "/{id}")
     @Operation(summary = "Find comment", description = "Find comment by id.")
-    public CommentResponse findOne(@PathVariable Long id) {
+    public CommentResponse findOne(@PathVariable String id) {
         log.info("GET comment with id {}", id);
 
         return commentService
@@ -111,7 +111,7 @@ public class CommentController {
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete existing comment", description = "Delete existing comment.")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable String id) {
         log.info("DELETE comment with id {}", id);
 
         commentService

@@ -34,13 +34,13 @@ public class AirportMapperTest {
     public void postToEntity_airportCreate_airport() {
         var city = new City();
 
-        when(cityService.findById(eq(1L))).thenReturn(Optional.of(city));
+        when(cityService.findById(eq("cityId"))).thenReturn(Optional.of(city));
 
         var airportCreate = new AirportCreate();
         airportCreate.setAltitude(1);
         airportCreate.setLatitude("latitude");
         airportCreate.setLongitude("longitude");
-        airportCreate.setCityId(1L);
+        airportCreate.setCityId("cityId");
         airportCreate.setDst(DST.A);
         airportCreate.setIata("iata");
         airportCreate.setIcao("icao");
@@ -52,6 +52,7 @@ public class AirportMapperTest {
 
         var airport = airportMapper.postToEntity(airportCreate);
 
+        assertThat(airport.getId()).isNotBlank();
         assertThat(airport.getAltitude()).isEqualTo(1);
         assertThat(airport.getLatitude()).isEqualTo("latitude");
         assertThat(airport.getLongitude()).isEqualTo("longitude");
@@ -70,13 +71,13 @@ public class AirportMapperTest {
     public void putToEntity_airportCreate_target_airport() {
         var city = new City();
 
-        when(cityService.findById(eq(1L))).thenReturn(Optional.of(city));
+        when(cityService.findById(eq("cityId"))).thenReturn(Optional.of(city));
 
         var airportCreate = new AirportCreate();
         airportCreate.setAltitude(1);
         airportCreate.setLatitude("latitude");
         airportCreate.setLongitude("longitude");
-        airportCreate.setCityId(1L);
+        airportCreate.setCityId("cityId");
         airportCreate.setDst(DST.A);
         airportCreate.setIata("iata");
         airportCreate.setIcao("icao");
@@ -169,6 +170,8 @@ public class AirportMapperTest {
     @Test
     public void entityToResponse_airport_airportResponse() {
         var airport = new Airport();
+        airport.setId("id");
+        airport.setExternalId(1L);
         airport.setAltitude(1);
         airport.setLatitude("latitude");
         airport.setLongitude("longitude");
@@ -183,6 +186,8 @@ public class AirportMapperTest {
 
         var airportResponse = airportMapper.entityToResponse(airport);
 
+        assertThat(airportResponse.getId()).isEqualTo("id");
+        assertThat(airportResponse.getExternalId()).isEqualTo(1L);
         assertThat(airportResponse.getAltitude()).isEqualTo(1);
         assertThat(airportResponse.getLatitude()).isEqualTo("latitude");
         assertThat(airportResponse.getLongitude()).isEqualTo("longitude");

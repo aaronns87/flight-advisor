@@ -2,6 +2,7 @@ package com.aaron.challenge.flightadvisor.comments;
 
 import com.aaron.challenge.flightadvisor.cities.City;
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,9 +17,9 @@ import java.time.LocalDateTime;
 public class Comment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @NaturalId
     @Column(nullable = false)
-    private Long id;
+    private String id;
 
     @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private City city;

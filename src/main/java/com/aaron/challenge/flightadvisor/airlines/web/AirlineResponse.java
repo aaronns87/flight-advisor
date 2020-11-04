@@ -10,8 +10,11 @@ import lombok.Setter;
 @Builder
 public class AirlineResponse {
 
-    @Schema(description = "Airline id", example = "1")
-    private Long id;
+    @Schema(description = "Airline id")
+    private String id;
+
+    @Schema(description = "Airline external id")
+    private Long externalId;
 
     @Schema(description = "Airline code", example = "2B")
     private String code;
