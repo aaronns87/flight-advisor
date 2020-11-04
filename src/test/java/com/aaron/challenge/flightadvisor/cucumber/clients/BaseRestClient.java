@@ -54,16 +54,16 @@ public interface BaseRestClient {
 
     default String findId(JsonObject body) {
         return search(body)
-                        .extract()
-                        .path("content[0].id")
-                        .toString();
+                .extract()
+                .path("content[0].id")
+                .toString();
     }
 
     default String findFirstId() {
         return findAll()
-                        .extract()
-                        .path("content[0].id")
-                        .toString();
+                .extract()
+                .path("content[0].id")
+                .toString();
     }
 
     default int countAll() {

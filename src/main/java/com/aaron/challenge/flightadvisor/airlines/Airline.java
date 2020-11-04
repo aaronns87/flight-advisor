@@ -3,7 +3,9 @@ package com.aaron.challenge.flightadvisor.airlines;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Getter
 @Setter

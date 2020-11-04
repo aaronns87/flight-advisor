@@ -18,17 +18,17 @@ public class RouteCsvMapper {
     RouteCsv mapFromCsv(CSVRecord csvRecord) {
         return RouteCsv.builder()
                 .airlineCsv(AirlineCsv.builder()
-                        .code(csvRecord.get(0))                                 // airline code
-                        .id(Long.parseLong(csvRecord.get(1)))                   // airline id
+                        .code(csvRecord.get(0))                                         // airline code
+                        .externalId(getAirlineExternalIdOrFallback(csvRecord.get(1)))   // airline id
                         .build())
-                .sourceAirportCode(csvRecord.get(2))                            // source airport code
-                .sourceAirportId(Long.parseLong(csvRecord.get(3)))              // source airport id
-                .destinationAirportCode(csvRecord.get(4))                       // destination airport code
-                .destinationAirportId(Long.parseLong(csvRecord.get(5)))         // destination airport id
-                .codeShare(StringUtils.isNotBlank(csvRecord.get(6)))            // code share
-                .stops(getStopsOrFallback(csvRecord.get(7)))                    // stops
-                .equipment(csvRecord.get(8))                                    // equipment
-                .price(getPriceOrFallback(csvRecord.get(9)))                    // price
+                .sourceAirportCode(csvRecord.get(2))                                    // source airport code
+                .sourceAirportId(getSourceAirportIdOrThrow(csvRecord.get(3)))           // source airport id
+                .destinationAirportCode(csvRecord.get(4))                               // destination airport code
+                .destinationAirportId(getDestinationAirportIdOrThrow(csvRecord.get(5))) // destination airport id
+                .codeShare(StringUtils.isNotBlank(csvRecord.get(6)))                    // code share
+                .stops(getStopsOrFallback(csvRecord.get(7)))                            // stops
+                .equipment(csvRecord.get(8))                                            // equipment
+                .price(getPriceOrFallback(csvRecord.get(9)))                            // price
                 .build();
     }
 
@@ -46,6 +46,26 @@ public class RouteCsvMapper {
                 .equipment(routeCsv.getEquipment())
                 .price(routeCsv.getPrice())
                 .build();
+    }
+
+    private Long getAirlineExternalIdOrFallback(String externalId) {
+        return StringUtils.isNotBlank(externalId) ? Long.parseLong(externalId) : null;
+    }
+
+    private Long getSourceAirportIdOrThrow(String sourceAirportId) {
+        if (StringUtils.isNotBlank(sourceAirportId)) {
+            return Long.parseLong(sourceAirportId);
+        } else {
+            throw new IllegalStateException("Source airport id is not allowed to be null!");
+        }
+    }
+
+    private Long getDestinationAirportIdOrThrow(String destinationAirportId) {
+        if (StringUtils.isNotBlank(destinationAirportId)) {
+            return Long.parseLong(destinationAirportId);
+        } else {
+            throw new IllegalStateException("Source airport id is not allowed to be null!");
+        }
     }
 
     private Integer getStopsOrFallback(String stops) {

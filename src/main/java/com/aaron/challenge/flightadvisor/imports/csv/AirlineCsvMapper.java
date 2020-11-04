@@ -11,7 +11,7 @@ public class AirlineCsvMapper {
     Airline toAirline(AirlineCsv airlineCsv) {
         return Airline.builder()
                 .id(UUID.randomUUID().toString())
-                .externalId(airlineCsv.getId()) // We are mapping external ids during CSV import since they are provided in CSV
+                .externalId(airlineCsv.getExternalId()) // We are mapping external ids during CSV import since they are provided in CSV
                 .code(airlineCsv.getCode())
                 .build();
     }

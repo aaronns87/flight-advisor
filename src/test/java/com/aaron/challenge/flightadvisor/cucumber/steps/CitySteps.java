@@ -1,6 +1,5 @@
 package com.aaron.challenge.flightadvisor.cucumber.steps;
 
-import com.aaron.challenge.flightadvisor.cucumber.SpringConfiguration;
 import com.aaron.challenge.flightadvisor.cucumber.clients.CityRestClient;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

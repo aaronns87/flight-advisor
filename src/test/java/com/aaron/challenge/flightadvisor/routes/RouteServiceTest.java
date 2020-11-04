@@ -1,6 +1,5 @@
 package com.aaron.challenge.flightadvisor.routes;
 
-import com.aaron.challenge.flightadvisor.comments.Comment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

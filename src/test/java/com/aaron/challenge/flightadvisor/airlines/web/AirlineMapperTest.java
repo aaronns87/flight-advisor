@@ -1,7 +1,6 @@
 package com.aaron.challenge.flightadvisor.airlines.web;
 
 import com.aaron.challenge.flightadvisor.airlines.Airline;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

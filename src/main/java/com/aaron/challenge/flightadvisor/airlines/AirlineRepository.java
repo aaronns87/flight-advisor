@@ -7,4 +7,6 @@ import java.util.Optional;
 interface AirlineRepository extends JpaRepository<Airline, String> {
 
     Optional<Airline> findByExternalId(Long externalId);
+
+    Optional<Airline> findByCode(String code);
 }

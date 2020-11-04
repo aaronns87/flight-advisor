@@ -46,6 +46,15 @@ public class AirlineServiceTest {
     }
 
     @Test
+    public void findByCodeId() {
+        var airline = new Airline();
+
+        when(airlineRepository.findByCode(eq("code"))).thenReturn(Optional.of(airline));
+
+        assertThat(airlineService.findByCode("code")).isPresent();
+    }
+
+    @Test
     public void create() {
         var airline = new Airline();
 

@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
@@ -57,15 +58,29 @@ public class RouteCsvPersist {
     }
 
     Airline findOrCreateAirline(AirlineCsv airlineCsv) {
-        return findAirlineByExternalId(
-                airlineCsv.getId()
-        ).orElseGet(
-                () -> create(airlineCsv)
-        );
+        if (notAirlineExternalIdValid(airlineCsv)) {
+            log.warn("Unable to search airline {} by invalid external id. Falling back to code {}", airlineCsv.toString(), airlineCsv.getCode());
+
+            return findAirlineByCode(
+                    airlineCsv.getCode()
+            ).orElseGet(
+                    () -> create(airlineCsv)
+            );
+        } else {
+            return findAirlineByExternalId(
+                    airlineCsv.getExternalId()
+            ).orElseGet(
+                    () -> create(airlineCsv)
+            );
+        }
     }
 
     private Optional<Airline> findAirlineByExternalId(Long externalId) {
         return airlineService.findByExternalId(externalId);
+    }
+
+    private Optional<Airline> findAirlineByCode(String code) {
+        return airlineService.findByCode(code);
     }
 
     private Airline create(AirlineCsv airlineCsv) {
@@ -85,7 +100,11 @@ public class RouteCsvPersist {
     Airport findAirportByExternalId(Long externalId) {
         return airportService.findByExternalId(externalId)
                 .orElseThrow(() -> {
-                    throw new EntityNotFoundException("Airport with external id " + externalId + " not found.");
+                    throw new EntityNotFoundException("Airport with external id " + externalId + " not found. Unable to create route. Breaking failure.");
                 });
+    }
+
+    private boolean notAirlineExternalIdValid(AirlineCsv airlineCsv) {
+        return Objects.isNull(airlineCsv.getExternalId());
     }
 }

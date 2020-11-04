@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class AirportCsv {
 
-    private Long id;
+    private Long externalId;
 
     private String name;
 

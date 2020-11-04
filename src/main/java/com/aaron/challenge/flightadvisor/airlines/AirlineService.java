@@ -31,6 +31,10 @@ public class AirlineService {
         return airlineRepository.findByExternalId(externalId);
     }
 
+    public Optional<Airline> findByCode(String code) {
+        return airlineRepository.findByCode(code);
+    }
+
     public Airline create(Airline airline) {
         return airlineRepository.save(airline);
     }

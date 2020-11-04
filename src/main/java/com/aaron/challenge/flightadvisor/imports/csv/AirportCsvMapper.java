@@ -4,7 +4,6 @@ import com.aaron.challenge.flightadvisor.airports.Airport;
 import com.aaron.challenge.flightadvisor.airports.DST;
 import com.aaron.challenge.flightadvisor.airports.Type;
 import com.aaron.challenge.flightadvisor.cities.City;
-import com.aaron.challenge.flightadvisor.cities.CityService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +23,7 @@ public class AirportCsvMapper {
 
     AirportCsv mapFromCsv(CSVRecord csvRecord) {
         return AirportCsv.builder()
-                .id(Long.parseLong(csvRecord.get(0)))               // id
+                .externalId(Long.parseLong(csvRecord.get(0)))               // id
                 .name(csvRecord.get(1))                             // name
                 .cityCsv(CityCsv.builder()
                         .name(csvRecord.get(2))                     // city name
@@ -46,7 +45,7 @@ public class AirportCsvMapper {
     Airport toAirport(AirportCsv airportCsv, City city) {
         return Airport.builder()
                 .id(UUID.randomUUID().toString())
-                .externalId(airportCsv.getId())  // We are mapping external ids during CSV import since they are provided in CSV
+                .externalId(airportCsv.getExternalId())  // We are mapping external ids during CSV import since they are provided in CSV
                 .name(airportCsv.getName())
                 .city(city)
                 .iata(airportCsv.getIata())
