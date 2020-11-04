@@ -1,0 +1,86 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.5.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'org.asciidoctor.convert' version '1.5.8'
+	id 'java'
+}
+
+apply plugin: 'maven-publish'
+
+group = 'com.aaron.challenge'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '14'
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	snippetsDir = file("${buildDir}/generated-snippets")
+}
+
+dependencies {
+	annotationProcessor 'org.projectlombok:lombok'
+	compileOnly 'org.projectlombok:lombok'
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.postgresql:postgresql:42.2.14'
+
+	compile 'org.apache.commons:commons-lang3'
+	compile 'org.apache.commons:commons-csv:1.8'
+
+
+	compile 'org.springdoc:springdoc-openapi-ui:1.4.8'
+	compile 'org.springdoc:springdoc-openapi-data-rest:1.4.8'
+
+	testCompile 'org.springframework.boot:spring-boot-starter-test'
+
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.testcontainers:junit-jupiter'
+
+	testCompile 'io.rest-assured:rest-assured'
+	testCompile 'org.mockito:mockito-core'
+	testCompile 'com.h2database:h2'
+
+	testCompile 'io.cucumber:cucumber-java:4.4.0'
+	testCompile 'io.cucumber:cucumber-junit:4.4.0'
+	testCompile 'io.cucumber:cucumber-spring:4.4.0'
+
+	testCompile 'org.testcontainers:testcontainers:1.15.0-rc2'
+	testCompile 'org.testcontainers:postgresql:1.15.0-rc2'
+
+	testCompile 'javax.json:javax.json-api'
+	testCompile 'org.glassfish:javax.json:1.1.4'}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.testcontainers:testcontainers-bom:1.15.0-rc2"
+	}
+}
+
+springBoot {
+	buildInfo()
+}
+
+clean {
+	delete 'logs'
+}
+
+test {
+	useJUnitPlatform {
+		include '**/*Test.class'
+		exclude '**/cucumber/*Test.class'
+	}
+}
+
+task integrationTests(type: Test) {
+	outputs.dir snippetsDir
+	useJUnitPlatform {
+		include '**/cucumber/*Test.class'
+	}
+}
