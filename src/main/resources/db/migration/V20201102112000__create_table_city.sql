@@ -1,0 +1,6 @@
+CREATE TABLE city (
+  id BIGINT PRIMARY KEY NOT NULL,
+  name VARCHAR (255) NOT NULL,
+  country VARCHAR (255) NOT NULL,
+  UNIQUE (name, country)
+);

@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: demo
+  jpa:
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 4MB
+      max-request-size: 4MB
+
+springdoc:
+  swagger-ui:
+    tagsSorter: alpha
+    operationsSorter: alpha
+    doc-expansion: none
