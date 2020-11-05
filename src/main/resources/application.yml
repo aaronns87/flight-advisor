@@ -16,3 +16,4 @@ springdoc:
     tagsSorter: alpha
     operationsSorter: alpha
     doc-expansion: none
+    path: /swagger-ui.html
