@@ -21,6 +21,10 @@ import java.util.stream.Stream;
 @Component
 public class CsvImporter {
 
+    private static final String NULL_STRING = "\\N";
+    private static final char DELIMITER = ',';
+    private static final char QUOTE = '"';
+
     private final AirportCsvMapper airportCsvMapper;
     private final AirportCsvPersist airportCsvPersist;
 
@@ -98,9 +102,9 @@ public class CsvImporter {
                 CSVFormat.DEFAULT
                         .withIgnoreSurroundingSpaces()
                         .withIgnoreEmptyLines()
-                        .withNullString("\\N")
-                        .withDelimiter(',')
-                        .withQuote('"')
+                        .withNullString(NULL_STRING)
+                        .withDelimiter(DELIMITER)
+                        .withQuote(QUOTE)
                         .withTrim()
         );
     }

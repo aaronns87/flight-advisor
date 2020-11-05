@@ -38,7 +38,7 @@ public class RouteCsvPersist {
         }
     }
 
-    Route map(RouteCsv routeCsv) {
+    private Route map(RouteCsv routeCsv) {
         return routeCsvMapper.toRoute(
                 routeCsv,
                 findOrCreateAirline(
@@ -57,7 +57,7 @@ public class RouteCsvPersist {
         routeService.create(route);
     }
 
-    Airline findOrCreateAirline(AirlineCsv airlineCsv) {
+    private Airline findOrCreateAirline(AirlineCsv airlineCsv) {
         if (notAirlineExternalIdValid(airlineCsv)) {
             log.warn("Unable to search airline {} by invalid external id. Falling back to code {}", airlineCsv.toString(), airlineCsv.getCode());
 
@@ -97,7 +97,7 @@ public class RouteCsvPersist {
         return airlineService.create(airline);
     }
 
-    Airport findAirportByExternalId(Long externalId) {
+    private Airport findAirportByExternalId(Long externalId) {
         return airportService.findByExternalId(externalId)
                 .orElseThrow(() -> {
                     throw new EntityNotFoundException("Airport with external id " + externalId + " not found. Unable to create route. Breaking failure.");

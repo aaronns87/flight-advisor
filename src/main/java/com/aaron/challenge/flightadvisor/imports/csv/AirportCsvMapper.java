@@ -23,7 +23,7 @@ public class AirportCsvMapper {
 
     AirportCsv mapFromCsv(CSVRecord csvRecord) {
         return AirportCsv.builder()
-                .externalId(Long.parseLong(csvRecord.get(0)))               // id
+                .externalId(Long.parseLong(csvRecord.get(0)))       // id
                 .name(csvRecord.get(1))                             // name
                 .cityCsv(CityCsv.builder()
                         .name(csvRecord.get(2))                     // city name
