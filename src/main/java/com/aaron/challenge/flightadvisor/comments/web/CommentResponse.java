@@ -1,6 +1,7 @@
 package com.aaron.challenge.flightadvisor.comments.web;
 
 import com.aaron.challenge.flightadvisor.cities.City;
+import com.aaron.challenge.flightadvisor.cities.web.CityResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,7 +18,7 @@ public class CommentResponse {
     private String id;
 
     @Schema(description = "City", example = "New York")
-    private City city;
+    private CityResponse city;
 
     @Schema(description = "Description", example = "No flights due to bad weather.")
     private String description;

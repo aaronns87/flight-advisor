@@ -1,11 +1,13 @@
 package com.aaron.challenge.flightadvisor.cities;
 
+import com.aaron.challenge.flightadvisor.comments.Comment;
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,4 +28,9 @@ public class City {
 
     @Column(nullable = false)
     private String country;
+
+    @Singular
+    @OneToMany(targetEntity = Comment.class, mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Comment> comments;
 }

@@ -165,6 +165,11 @@ public class AirportMapperTest {
 
     @Test
     public void entityToResponse_airport_airportResponse() {
+        var city = new City();
+        city.setId("cityId");
+        city.setName("name");
+        city.setCountry("country");
+
         var airport = new Airport();
         airport.setId("id");
         airport.setExternalId(1L);
@@ -179,10 +184,14 @@ public class AirportMapperTest {
         airport.setTz("tz");
         airport.setType(Type.AIRPORT);
         airport.setSource("source");
+        airport.setCity(city);
 
         var airportResponse = airportMapper.entityToResponse(airport);
 
         assertThat(airportResponse.getId()).isEqualTo("id");
+        assertThat(airportResponse.getCity().getId()).isEqualTo("cityId");
+        assertThat(airportResponse.getCity().getName()).isEqualTo("name");
+        assertThat(airportResponse.getCity().getCountry()).isEqualTo("country");
         assertThat(airportResponse.getExternalId()).isEqualTo(1L);
         assertThat(airportResponse.getAltitude()).isEqualTo(1);
         assertThat(airportResponse.getLatitude()).isEqualTo("latitude");

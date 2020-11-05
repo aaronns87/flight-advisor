@@ -157,17 +157,22 @@ public class RouteMapperTest {
     @Test
     public void entityToResponse_airport_airportResponse() {
         var airline = new Airline();
-        var source = new Airport();
-        var destination = new Airport();
+        airline.setId("airlineId");
+
+        var sourceAirport = new Airport();
+        sourceAirport.setId("sourceAirportId");
+
+        var destinationAirport = new Airport();
+        destinationAirport.setId("destinationAirportId");
 
         var route = new Route();
         route.setId("id");
         route.setAirlineCode("airlineCode");
         route.setAirline(airline);
         route.setSourceAirportCode("sourceAirportCode");
-        route.setSourceAirport(source);
+        route.setSourceAirport(sourceAirport);
         route.setDestinationAirportCode("destinationAirportCode");
-        route.setDestinationAirport(destination);
+        route.setDestinationAirport(destinationAirport);
         route.setStops(1);
         route.setPrice(10.0f);
         route.setEquipment("equipment");
@@ -177,11 +182,11 @@ public class RouteMapperTest {
 
         assertThat(routeResponse.getId()).isEqualTo("id");
         assertThat(routeResponse.getAirlineCode()).isEqualTo("airlineCode");
-        assertThat(routeResponse.getAirline()).isEqualTo(airline);
+        assertThat(routeResponse.getAirline().getId()).isEqualTo("airlineId");
         assertThat(routeResponse.getSourceAirportCode()).isEqualTo("sourceAirportCode");
-        assertThat(routeResponse.getSourceAirport()).isEqualTo(source);
+        assertThat(routeResponse.getSourceAirport().getId()).isEqualTo("sourceAirportId");
         assertThat(routeResponse.getDestinationAirportCode()).isEqualTo("destinationAirportCode");
-        assertThat(routeResponse.getDestinationAirport()).isEqualTo(destination);
+        assertThat(routeResponse.getDestinationAirport().getId()).isEqualTo("destinationAirportId");
         assertThat(routeResponse.getStops()).isEqualTo(1);
         assertThat(routeResponse.getPrice()).isEqualTo(10.0f);
         assertThat(route.getEquipment()).isEqualTo("equipment");

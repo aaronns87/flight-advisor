@@ -1,10 +1,13 @@
 package com.aaron.challenge.flightadvisor.cities.web;
 
 import com.aaron.challenge.flightadvisor.cities.City;
+import com.aaron.challenge.flightadvisor.comments.web.CommentResponse;
 import com.aaron.challenge.flightadvisor.config.web.GenericRestMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class CityMapper implements GenericRestMapper<City, CityCreate, CityUpdate, CitySearch, CityResponse> {
@@ -48,6 +51,19 @@ public class CityMapper implements GenericRestMapper<City, CityCreate, CityUpdat
                 .id(city.getId())
                 .name(city.getName())
                 .country(city.getCountry())
+                .comments(getComments(city))
                 .build();
+    }
+
+    private List<CommentResponse> getComments(City city) {
+        return city.getComments().stream()
+                .map(comment ->
+                        CommentResponse.builder()
+                                .id(comment.getId())
+                                .description(comment.getDescription())
+                                .createdDate(comment.getCreatedDate())
+                                .modifiedDate(comment.getModifiedDate())
+                                .build()
+                ).collect(Collectors.toList());
     }
 }

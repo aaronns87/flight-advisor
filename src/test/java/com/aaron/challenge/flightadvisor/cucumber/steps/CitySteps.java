@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.json.Json;
 
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 
 public class CitySteps {
 
@@ -49,5 +48,15 @@ public class CitySteps {
 
         cityRestClient.search(body)
                 .body("content.country", contains(country));
+    }
+
+    @Then("City with name {string} has comment on index {string} with description {string}")
+    public void searchCityComments(String name, String index, String description) {
+        var body = Json.createObjectBuilder()
+                .add("name", name)
+                .build();
+
+        cityRestClient.search(body)
+                .body("content.comments[0].description[" + Integer.parseInt(index) + "]", equalTo(description));
     }
 }

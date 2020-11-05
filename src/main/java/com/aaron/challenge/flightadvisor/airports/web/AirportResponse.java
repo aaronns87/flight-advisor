@@ -3,6 +3,7 @@ package com.aaron.challenge.flightadvisor.airports.web;
 import com.aaron.challenge.flightadvisor.airports.DST;
 import com.aaron.challenge.flightadvisor.airports.Type;
 import com.aaron.challenge.flightadvisor.cities.City;
+import com.aaron.challenge.flightadvisor.cities.web.CityResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +24,7 @@ public class AirportResponse {
     private String name;
 
     @Schema(description = "City", example = "London")
-    private City city;
+    private CityResponse city;
 
     @Schema(description = "IATA - 3-letter IATA code", example = "GKA")
     private String iata;

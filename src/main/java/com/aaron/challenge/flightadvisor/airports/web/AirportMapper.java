@@ -3,6 +3,7 @@ package com.aaron.challenge.flightadvisor.airports.web;
 import com.aaron.challenge.flightadvisor.airports.Airport;
 import com.aaron.challenge.flightadvisor.cities.City;
 import com.aaron.challenge.flightadvisor.cities.CityService;
+import com.aaron.challenge.flightadvisor.cities.web.CityResponse;
 import com.aaron.challenge.flightadvisor.config.web.GenericRestMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -95,7 +96,12 @@ public class AirportMapper implements GenericRestMapper<Airport, AirportCreate, 
                 .id(airport.getId())
                 .externalId(airport.getExternalId())
                 .name(airport.getName())
-                .city(airport.getCity())
+                .city(CityResponse.builder()
+                        .id(airport.getCity().getId())
+                        .name(airport.getCity().getName())
+                        .country(airport.getCity().getCountry())
+                        .build()
+                )
                 .iata(airport.getIata())
                 .icao(airport.getIcao())
                 .latitude(airport.getLatitude())

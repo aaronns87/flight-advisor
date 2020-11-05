@@ -1,10 +1,13 @@
 package com.aaron.challenge.flightadvisor.cities.web;
 
 import com.aaron.challenge.flightadvisor.cities.City;
+import com.aaron.challenge.flightadvisor.comments.Comment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -73,11 +76,13 @@ public class CityMapperTest {
         city.setId("id");
         city.setName("name");
         city.setCountry("country");
+        city.setComments(List.of(new Comment()));
 
         var cityResponse = cityMapper.entityToResponse(city);
 
         assertThat(cityResponse.getId()).isEqualTo("id");
         assertThat(cityResponse.getName()).isEqualTo("name");
         assertThat(cityResponse.getCountry()).isEqualTo("country");
+        assertThat(cityResponse.getComments()).hasSize(1);
     }
 }

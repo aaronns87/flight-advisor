@@ -1,7 +1,9 @@
 package com.aaron.challenge.flightadvisor.routes.web;
 
 import com.aaron.challenge.flightadvisor.airlines.Airline;
+import com.aaron.challenge.flightadvisor.airlines.web.AirlineResponse;
 import com.aaron.challenge.flightadvisor.airports.Airport;
+import com.aaron.challenge.flightadvisor.airports.web.AirportResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,19 +21,19 @@ public class RouteResponse {
     private String airlineCode;
 
     @Schema(description = "Airline")
-    private Airline airline;
+    private AirlineResponse airline;
 
     @Schema(description = "Source airport - 3-letter (IATA) or 4-letter (ICAO) code of the source airport", example = "AER")
     private String sourceAirportCode;
 
     @Schema(description = "Source Airport")
-    private Airport sourceAirport;
+    private AirportResponse sourceAirport;
 
     @Schema(description = "Destination airport - 3-letter (IATA) or 4-letter (ICAO) code of the destination airport", example = "KZN")
     private String destinationAirportCode;
 
     @Schema(description = "Destination Airport Id")
-    private Airport destinationAirport;
+    private AirportResponse destinationAirport;
 
     @Schema(description = "Is code share?", example = "true")
     private Boolean codeShare;

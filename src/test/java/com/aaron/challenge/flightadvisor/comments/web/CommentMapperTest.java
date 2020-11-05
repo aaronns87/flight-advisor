@@ -93,6 +93,9 @@ public class CommentMapperTest {
     @Test
     public void entityToResponse_comment_commentResponse() {
         var city = new City();
+        city.setId("cityId");
+        city.setName("name");
+        city.setCountry("country");
 
         var comment = new Comment();
         comment.setId("id");
@@ -104,7 +107,9 @@ public class CommentMapperTest {
         var commentResponse = commentMapper.entityToResponse(comment);
 
         assertThat(commentResponse.getId()).isEqualTo("id");
-        assertThat(commentResponse.getCity()).isEqualTo(city);
+        assertThat(commentResponse.getCity().getId()).isEqualTo("cityId");
+        assertThat(commentResponse.getCity().getName()).isEqualTo("name");
+        assertThat(commentResponse.getCity().getCountry()).isEqualTo("country");
         assertThat(commentResponse.getDescription()).isEqualTo("description");
         assertThat(commentResponse.getCreatedDate()).isNotNull();
         assertThat(commentResponse.getModifiedDate()).isNotNull();

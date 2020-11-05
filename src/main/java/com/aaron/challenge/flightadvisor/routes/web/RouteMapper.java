@@ -2,8 +2,10 @@ package com.aaron.challenge.flightadvisor.routes.web;
 
 import com.aaron.challenge.flightadvisor.airlines.Airline;
 import com.aaron.challenge.flightadvisor.airlines.AirlineService;
+import com.aaron.challenge.flightadvisor.airlines.web.AirlineResponse;
 import com.aaron.challenge.flightadvisor.airports.Airport;
 import com.aaron.challenge.flightadvisor.airports.AirportService;
+import com.aaron.challenge.flightadvisor.airports.web.AirportResponse;
 import com.aaron.challenge.flightadvisor.config.web.GenericRestMapper;
 import com.aaron.challenge.flightadvisor.routes.Route;
 import lombok.RequiredArgsConstructor;
@@ -86,11 +88,22 @@ public class RouteMapper implements GenericRestMapper<Route, RouteCreate, RouteU
         return RouteResponse.builder()
                 .id(route.getId())
                 .airlineCode(route.getAirlineCode())
-                .airline(route.getAirline())
+                .airline(AirlineResponse.builder()
+                        .id(route.getAirline().getId())
+                        .build()
+                )
                 .sourceAirportCode(route.getSourceAirportCode())
-                .sourceAirport(route.getSourceAirport())
+                .sourceAirport(
+                        AirportResponse.builder()
+                                .id(route.getSourceAirport().getId())
+                                .build()
+                )
                 .destinationAirportCode(route.getDestinationAirportCode())
-                .destinationAirport(route.getDestinationAirport())
+                .destinationAirport(
+                        AirportResponse.builder()
+                                .id(route.getDestinationAirport().getId())
+                                .build()
+                )
                 .codeShare(route.getCodeShare())
                 .stops(route.getStops())
                 .equipment(route.getEquipment())

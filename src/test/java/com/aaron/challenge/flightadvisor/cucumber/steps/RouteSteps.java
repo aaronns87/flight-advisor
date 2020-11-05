@@ -72,14 +72,18 @@ public class RouteSteps {
                             String stops,
                             String equipment,
                             String price) {
+        var airlineId = airlineRestClient.findIdByCode(airlineCode);
+        var sourceAirportId = airportRestClient.findIdByName(sourceAirportName);
+        var destinationAirportId = airportRestClient.findIdByName(destinationAirportName);
+
         routeRestClient.findAll()
                 .body("content.id", notNullValue())
                 .body("content.airlineCode", contains(airlineCode))
-                .body("content.airline.code", contains(airlineCode))
+                .body("content.airline.id", contains(airlineId))
                 .body("content.sourceAirportCode", contains(sourceAirportCode))
-                .body("content.sourceAirport.name", contains(sourceAirportName))
+                .body("content.sourceAirport.id", contains(sourceAirportId))
                 .body("content.destinationAirportCode", contains(destinationAirportCode))
-                .body("content.destinationAirport.name", contains(destinationAirportName))
+                .body("content.destinationAirport.id", contains(destinationAirportId))
                 .body("content.codeShare[0]", is(Boolean.parseBoolean(codeShare)))
                 .body("content.stops[0]", equalTo(Integer.parseInt(stops)))
                 .body("content.equipment", contains(equipment))

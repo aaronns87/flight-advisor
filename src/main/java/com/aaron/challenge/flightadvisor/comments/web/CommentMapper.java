@@ -2,6 +2,7 @@ package com.aaron.challenge.flightadvisor.comments.web;
 
 import com.aaron.challenge.flightadvisor.cities.City;
 import com.aaron.challenge.flightadvisor.cities.CityService;
+import com.aaron.challenge.flightadvisor.cities.web.CityResponse;
 import com.aaron.challenge.flightadvisor.comments.Comment;
 import com.aaron.challenge.flightadvisor.config.web.GenericRestMapper;
 import lombok.RequiredArgsConstructor;
@@ -60,7 +61,11 @@ public class CommentMapper implements GenericRestMapper<Comment, CommentCreate, 
     public CommentResponse entityToResponse(Comment comment) {
         return CommentResponse.builder()
                 .id(comment.getId())
-                .city(comment.getCity())
+                .city(CityResponse.builder()
+                        .id(comment.getCity().getId())
+                        .name(comment.getCity().getName())
+                        .country(comment.getCity().getCountry())
+                        .build())
                 .description(comment.getDescription())
                 .createdDate(comment.getCreatedDate())
                 .modifiedDate(comment.getModifiedDate())
