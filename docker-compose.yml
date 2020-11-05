@@ -12,3 +12,13 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_PRIMARY_PORT: 5432
+  flight-advisor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres/postgres
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
