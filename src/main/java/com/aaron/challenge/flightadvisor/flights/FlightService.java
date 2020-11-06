@@ -20,7 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 
 @Service
-public class FlightsService {
+public class FlightService {
 
     private final CheapestFlightsService cheapestFlightsService;
 
