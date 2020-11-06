@@ -80,4 +80,11 @@ public class RouteServiceTest {
 
         verify(routeRepository).delete(route);
     }
+
+    @Test
+    public void findCheapestFlightChain() {
+        routeService.findCheapestFlightChain(1, 2, 1, 1);
+
+        verify(routeRepository).findCheapestFlightChain(1, 2, 1, 1);
+    }
 }

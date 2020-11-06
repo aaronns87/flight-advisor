@@ -2,6 +2,7 @@ package com.aaron.challenge.flightadvisor.imports.csv;
 
 import com.aaron.challenge.flightadvisor.airlines.Airline;
 import com.aaron.challenge.flightadvisor.airports.Airport;
+import com.aaron.challenge.flightadvisor.cities.City;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -39,10 +40,16 @@ public class RouteCsvMapperTest {
 
         var sourceAirport = Airport.builder()
                 .externalId(2L)
+                .city(City.builder()
+                        .mapping(1)
+                        .build())
                 .build();
 
         var destinationAirport = Airport.builder()
                 .externalId(3L)
+                .city(City.builder()
+                        .mapping(2)
+                        .build())
                 .build();
 
         var route = routeCsvMapper.toRoute(routeCsv, airline, sourceAirport, destinationAirport);
@@ -56,5 +63,7 @@ public class RouteCsvMapperTest {
         assertThat(route.getStops()).isEqualTo(1);
         assertThat(route.getEquipment()).isEqualTo("equipment");
         assertThat(route.getPrice()).isEqualTo(1f);
+        assertThat(route.getSourceCityMapping()).isEqualTo(1);
+        assertThat(route.getDestinationCityMapping()).isEqualTo(2);
     }
 }

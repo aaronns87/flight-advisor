@@ -26,33 +26,43 @@ public class RouteMapper implements GenericRestMapper<Route, RouteCreate, RouteU
 
     @Override
     public Route postToEntity(RouteCreate routeCreate) {
+        var sourceAirport = findAirportOrThrow(routeCreate.getSourceAirportId());
+        var destinationAirport = findAirportOrThrow(routeCreate.getDestinationAirportId());
+
         return Route.builder()
                 .id(UUID.randomUUID().toString())
                 .airlineCode(routeCreate.getAirlineCode())
                 .airline(findAirlineOrThrow(routeCreate.getAirlineId()))
                 .sourceAirportCode(routeCreate.getSourceAirportCode())
-                .sourceAirport(findAirportOrThrow(routeCreate.getSourceAirportId()))
+                .sourceAirport(sourceAirport)
                 .destinationAirportCode(routeCreate.getDestinationAirportCode())
-                .destinationAirport(findAirportOrThrow(routeCreate.getDestinationAirportId()))
+                .destinationAirport(destinationAirport)
                 .codeShare(routeCreate.getCodeShare())
                 .stops(routeCreate.getStops())
                 .equipment(routeCreate.getEquipment())
                 .price(routeCreate.getPrice())
+                .sourceCityMapping(sourceAirport.getCity().getMapping())
+                .destinationCityMapping(destinationAirport.getCity().getMapping())
                 .build();
     }
 
     @Override
     public Route putToEntity(RouteCreate routeCreate, Route target) {
+        var sourceAirport = findAirportOrThrow(routeCreate.getSourceAirportId());
+        var destinationAirport = findAirportOrThrow(routeCreate.getDestinationAirportId());
+
         target.setAirlineCode(routeCreate.getAirlineCode());
         target.setAirline(findAirlineOrThrow(routeCreate.getAirlineId()));
         target.setSourceAirportCode(routeCreate.getSourceAirportCode());
-        target.setSourceAirport(findAirportOrThrow(routeCreate.getSourceAirportId()));
+        target.setSourceAirport(sourceAirport);
         target.setDestinationAirportCode(routeCreate.getDestinationAirportCode());
-        target.setDestinationAirport(findAirportOrThrow(routeCreate.getDestinationAirportId()));
+        target.setDestinationAirport(destinationAirport);
         target.setCodeShare(routeCreate.getCodeShare());
         target.setStops(routeCreate.getStops());
         target.setEquipment(routeCreate.getEquipment());
         target.setPrice(routeCreate.getPrice());
+        target.setSourceCityMapping(sourceAirport.getCity().getMapping());
+        target.setDestinationCityMapping(destinationAirport.getCity().getMapping());
 
         return target;
     }

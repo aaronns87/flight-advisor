@@ -29,6 +29,9 @@ public class City {
     @Column(nullable = false)
     private String country;
 
+    @Column(insertable = false, updatable = false)
+    private Integer mapping;
+
     @Singular
     @OneToMany(targetEntity = Comment.class, mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)

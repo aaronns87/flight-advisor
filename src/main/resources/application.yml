@@ -17,3 +17,8 @@ springdoc:
     operationsSorter: alpha
     doc-expansion: none
     path: /swagger-ui.html
+
+flight:
+  search:
+    defaultMaxHops: 3
+    defaultMaxResults: 5

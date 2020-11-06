@@ -4,6 +4,7 @@ import com.aaron.challenge.flightadvisor.airlines.Airline;
 import com.aaron.challenge.flightadvisor.airlines.AirlineService;
 import com.aaron.challenge.flightadvisor.airports.Airport;
 import com.aaron.challenge.flightadvisor.airports.AirportService;
+import com.aaron.challenge.flightadvisor.cities.City;
 import com.aaron.challenge.flightadvisor.routes.Route;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,8 +36,17 @@ public class RouteMapperTest {
 
         when(airlineService.findById(eq("airlineId"))).thenReturn(Optional.of(airline));
 
+        var sourceCity = City.builder()
+                .mapping(1)
+                .build();
         var source = new Airport();
+        source.setCity(sourceCity);
+
+        var destinationCity = City.builder()
+                .mapping(2)
+                .build();
         var destination = new Airport();
+        destination.setCity(destinationCity);
 
         when(airportService.findById(eq("sourceAirportId"))).thenReturn(Optional.of(source));
         when(airportService.findById(eq("destinationAirportId"))).thenReturn(Optional.of(destination));
@@ -67,6 +77,9 @@ public class RouteMapperTest {
         assertThat(route.getPrice()).isEqualTo(10.0f);
         assertThat(route.getEquipment()).isEqualTo("equipment");
         assertThat(route.getCodeShare()).isTrue();
+        assertThat(route.getSourceCityMapping()).isEqualTo(1);
+        assertThat(route.getDestinationCityMapping()).isEqualTo(2);
+
     }
 
     @Test
@@ -75,8 +88,17 @@ public class RouteMapperTest {
 
         when(airlineService.findById(eq("airlineId"))).thenReturn(Optional.of(airline));
 
+        var sourceCity = City.builder()
+                .mapping(1)
+                .build();
         var source = new Airport();
+        source.setCity(sourceCity);
+
+        var destinationCity = City.builder()
+                .mapping(2)
+                .build();
         var destination = new Airport();
+        destination.setCity(destinationCity);
 
         when(airportService.findById(eq("sourceAirportId"))).thenReturn(Optional.of(source));
         when(airportService.findById(eq("destinationAirportId"))).thenReturn(Optional.of(destination));
@@ -107,6 +129,8 @@ public class RouteMapperTest {
         assertThat(route.getPrice()).isEqualTo(10.0f);
         assertThat(route.getEquipment()).isEqualTo("equipment");
         assertThat(route.getCodeShare()).isTrue();
+        assertThat(route.getSourceCityMapping()).isEqualTo(1);
+        assertThat(route.getDestinationCityMapping()).isEqualTo(2);
     }
 
     @Test

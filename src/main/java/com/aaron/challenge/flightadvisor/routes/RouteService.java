@@ -1,5 +1,6 @@
 package com.aaron.challenge.flightadvisor.routes;
 
+import com.aaron.challenge.flightadvisor.routes.cheapest.CheapestFlightChain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -45,5 +47,9 @@ public class RouteService {
 
     public void delete(Route route) {
         routeRepository.delete(route);
+    }
+
+    public List<CheapestFlightChain> findCheapestFlightChain(Integer sourceCityMapping, Integer destinationCityMapping, Integer maxHops, Integer maxResults) {
+        return routeRepository.findCheapestFlightChain(sourceCityMapping, destinationCityMapping, maxHops, maxResults);
     }
 }

@@ -45,6 +45,8 @@ public class RouteCsvMapper {
                 .stops(routeCsv.getStops())
                 .equipment(routeCsv.getEquipment())
                 .price(routeCsv.getPrice())
+                .sourceCityMapping(sourceAirport.getCity().getMapping())
+                .destinationCityMapping(destinationAirport.getCity().getMapping())
                 .build();
     }
 
