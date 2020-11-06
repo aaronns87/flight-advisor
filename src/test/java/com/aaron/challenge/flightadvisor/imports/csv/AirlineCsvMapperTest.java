@@ -1,5 +1,6 @@
 package com.aaron.challenge.flightadvisor.imports.csv;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -12,6 +13,7 @@ public class AirlineCsvMapperTest {
     @InjectMocks
     private AirlineCsvMapper airlineCsvMapper;
 
+    @Test
     public void toAirline_airlineCsv_airline() {
         var airlineCsv = AirlineCsv.builder()
                 .code("code")

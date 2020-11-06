@@ -13,13 +13,13 @@ public enum Type {
         this.name = name;
     }
 
-    String getName() {
-        return name;
-    }
-
     public static Optional<Type> getByName(String name) {
         return Arrays.stream(Type.values())
                 .filter(type -> type.getName().equals(name))
                 .findFirst();
+    }
+
+    String getName() {
+        return name;
     }
 }

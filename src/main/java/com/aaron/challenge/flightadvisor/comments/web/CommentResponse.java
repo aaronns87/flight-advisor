@@ -1,6 +1,5 @@
 package com.aaron.challenge.flightadvisor.comments.web;
 
-import com.aaron.challenge.flightadvisor.cities.City;
 import com.aaron.challenge.flightadvisor.cities.web.CityResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

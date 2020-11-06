@@ -2,7 +2,6 @@ package com.aaron.challenge.flightadvisor.cucumber.clients;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.MultiPartSpecBuilder;
-import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.MultiPartSpecification;
 import org.springframework.stereotype.Component;

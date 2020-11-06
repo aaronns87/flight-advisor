@@ -1,8 +1,6 @@
 package com.aaron.challenge.flightadvisor.routes.web;
 
-import com.aaron.challenge.flightadvisor.airlines.Airline;
 import com.aaron.challenge.flightadvisor.airlines.web.AirlineResponse;
-import com.aaron.challenge.flightadvisor.airports.Airport;
 import com.aaron.challenge.flightadvisor.airports.web.AirportResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
