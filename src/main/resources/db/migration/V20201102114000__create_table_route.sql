@@ -18,3 +18,6 @@ CREATE TABLE route
     FOREIGN KEY (source_airport_id) REFERENCES airport (id),
     FOREIGN KEY (destination_airport_id) REFERENCES airport (id)
 );
+
+CREATE INDEX idx_source_city_mapping ON route (source_city_mapping);
+CREATE INDEX idx_destination_city_mapping ON route (destination_city_mapping);
