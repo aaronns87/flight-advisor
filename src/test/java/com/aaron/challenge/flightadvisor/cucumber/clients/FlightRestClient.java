@@ -30,7 +30,7 @@ public class FlightRestClient {
                 .body(body.toString())
                 .when()
                 .contentType(ContentType.JSON)
-                .post(BASE_PATH + "/cheapest")
+                .get(BASE_PATH + "/cheapest")
                 .then();
     }
 }
