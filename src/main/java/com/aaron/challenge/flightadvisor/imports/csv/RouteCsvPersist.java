@@ -33,6 +33,8 @@ public class RouteCsvPersist {
             createInDb(
                     map(routeCsv)
             );
+        } catch (EntityNotFoundException e) {
+            log.info("Skipping import of route {} due to {}.", routeCsv.toString(), e.getMessage());
         } catch (Exception e) {
             log.warn("Skipping import of route {} due to error.", routeCsv.toString(), e);
         }
