@@ -72,6 +72,56 @@ Endpoints:
 
 * Routes: `POST /admin/import/routes`, multipart form data `file`, supported format `csv`, max size 4MB
 
+## Cheapest flight search
+
+### SQL
+```
+WITH RECURSIVE flight_chain(
+  source_city_mapping,
+  destination_city_mapping,  
+  total_price,
+  sources,
+  destinations,
+  routes,
+  hops
+) AS (      
+        SELECT
+          r.source_city_mapping,
+          r.destination_city_mapping,
+          r.price as total_price,
+          ARRAY[r.source_city_mapping] AS sources,
+          ARRAY[r.destination_city_mapping] AS destinations,
+          ARRAY[r.id::TEXT] AS routes,
+          1 AS hops
+        FROM route AS r       
+        WHERE       
+          source_city_mapping = :sourceAirportMapping
+      UNION ALL      
+        select
+          r.source_city_mapping,
+          r.destination_city_mapping,
+          fc.total_price + r.price AS total_price,
+          sources || r.source_city_mapping AS sources,
+          destinations || r.destination_city_mapping AS destinations,
+          routes || r.id::TEXT as routes,
+          fc.hops + 1 AS hops
+        FROM route AS r, flight_chain AS fc
+        WHERE       
+          r.source_city_mapping = fc.destination_city_mapping
+          AND (r.source_city_mapping <> ALL(fc.sources))
+          and (r.destination_city_mapping <> ALL(fc.destinations))
+          AND fc.hops < :maxHops
+)      
+SELECT routes AS routes, 
+    total_price AS totalPrice, 
+    hops AS hops, 
+    destinations AS destinations 
+FROM flight_chain
+WHERE :destinationAirportMapping = destinations[array_upper(destinations, 1)] 
+ORDER BY totalPrice ASC 
+LIMIT :maxLimit;
+```
+
 ## Developer comments
 
 * The airports csv is badly formatted, not following the csv quote convention and is using \"
