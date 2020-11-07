@@ -59,7 +59,7 @@ public class FlightService {
         return findCity(
                 flightSearchRequest.getDestination())
                 .orElseThrow(() -> {
-                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Source city not found!");
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Destination city not found!");
                 });
     }
 
