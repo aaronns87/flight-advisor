@@ -59,6 +59,14 @@ Location `[HOST]/swagger-ui.html`
 
 e.g. `http://localhost:8080/swagger-ui.html`
 
+## Postman collection
+
+There is a Postman collection file available under:
+
+`./postman/FlightAdvisor.postman_collection.json` 
+
+The most useful request definitions are available there as templates.
+
 ## Import
 
 * Use properly formatted CSV files
@@ -72,55 +80,144 @@ Endpoints:
 
 * Routes: `POST /admin/import/routes`, multipart form data `file`, supported format `csv`, max size 4MB
 
-## Cheapest flight search
+## The Cheapest flight SEARCH explanation
+
+The entire algorithm for the cheapest flight search is performed via one SQL query which can be found 
+as named query in Route entity class file.
+
+The algorithm relies on the `source_city_mapping` and `destination_city_mapping` which are auto generated sequences on 
+`city` entity. Because the requirement stated that the search is performed by providing `source` and `destination`
+cities,once the route is created in db the `source_city_mapping` and `destination_city_mapping` are populated by the reference
+between `route -> airport`, and `airport -> city`.
+
+The SQL query is basically a recursive query that starts with the search on `source_city_mapping` and recursively 
+expands the search to the nearest nodes (`destination_city_mapping`). The recursion is stopped by either reaching the
+`destination_city_mapping` or by reaching the maximum depth (`hops`).
+
+The returned results are ordered by the `total_price` ascending (which is calculated during recursive expansion) and the 
+number of results is limited by `maxLimit` parameter.
 
 ### SQL
 ```
 WITH RECURSIVE flight_chain(
-  source_city_mapping,
-  destination_city_mapping,  
-  total_price,
-  sources,
-  destinations,
-  routes,
-  hops
+  source_city_mapping, -- Source city mapping id
+  destination_city_mapping, -- Destination city mapping id
+  total_price, -- Total calculated price
+  sources, -- Sources array of source city mappings (needed for circular check)
+  destinations, -- Destinations array of destination city mappings (needed for circular check)
+  routes, -- Array of route ids in the chain
+  hops -- Hops in the chain, the deeper the recursion goes, the greater the hops number
 ) AS (      
-        SELECT
+        SELECT -- Root query
           r.source_city_mapping,
           r.destination_city_mapping,
           r.price as total_price,
-          ARRAY[r.source_city_mapping] AS sources,
-          ARRAY[r.destination_city_mapping] AS destinations,
-          ARRAY[r.id::TEXT] AS routes,
-          1 AS hops
+          ARRAY[r.source_city_mapping] AS sources, -- Sources is array
+          ARRAY[r.destination_city_mapping] AS destinations, -- Destinations is array
+          ARRAY[r.id::TEXT] AS routes, -- Routes is array
+          1 AS hops -- First hop (depth) is 1
         FROM route AS r       
         WHERE       
-          source_city_mapping = :sourceAirportMapping
+          source_city_mapping = :sourceAirportMapping -- Source city mapping id, begining of recursion
       UNION ALL      
-        select
+        SELECT -- Recursive expansion
           r.source_city_mapping,
           r.destination_city_mapping,
-          fc.total_price + r.price AS total_price,
-          sources || r.source_city_mapping AS sources,
-          destinations || r.destination_city_mapping AS destinations,
-          routes || r.id::TEXT as routes,
-          fc.hops + 1 AS hops
-        FROM route AS r, flight_chain AS fc
+          fc.total_price + r.price AS total_price, -- Add up price with new route
+          sources || r.source_city_mapping AS sources, -- Append source mapping
+          destinations || r.destination_city_mapping AS destinations, -- Append destination mapping
+          routes || r.id::TEXT as routes, -- Append new route id
+          fc.hops + 1 AS hops -- Increase number of hops (depth)
+        FROM route AS r, flight_chain AS fc -- Circullar join
         WHERE       
-          r.source_city_mapping = fc.destination_city_mapping
-          AND (r.source_city_mapping <> ALL(fc.sources))
-          and (r.destination_city_mapping <> ALL(fc.destinations))
-          AND fc.hops < :maxHops
+          r.source_city_mapping = fc.destination_city_mapping -- Join on current destination mapping = next source mapping
+          AND (r.source_city_mapping <> ALL(fc.sources)) -- Avoid circular paths
+          and (r.destination_city_mapping <> ALL(fc.destinations)) -- Avoid circular paths
+          AND fc.hops < :maxHops -- Stop if hops (deph) is exceeded
 )      
 SELECT routes AS routes, 
     total_price AS totalPrice, 
     hops AS hops, 
     destinations AS destinations 
 FROM flight_chain
-WHERE :destinationAirportMapping = destinations[array_upper(destinations, 1)] 
-ORDER BY totalPrice ASC 
-LIMIT :maxLimit;
+WHERE :destinationAirportMapping = destinations[array_upper(destinations, 1)] -- Return only routes ending with destination mapping
+ORDER BY totalPrice ASC -- Order by total price descending
+LIMIT :maxLimit; -- Limit results by some desired number
 ```
+
+After the results are returned by the given SQL query the data object has the given structure:
+
+```
+public class CheapestFlightChain {
+
+    private String routes;
+
+    private Float totalPrice;
+
+    private Integer hops;
+}
+```
+
+Hibernate unfortunately doesn't support ARRAY of TEXT mapping, so routes are mapped as string and then split later.
+
+The routes are a list of routeIds, based upon what the routes in the chain are retreived from db, the response is mapped
+and is presented to the user in the given json response:
+
+### Request JSON
+
+```
+GET /flights/cheapest
+----
+BODY
+----
+{
+    "source": {
+        "name": "sourceCityName",
+        "country": "sourceCityCountryName"
+    },
+    "destination": {
+       "name": "destinationCityName",
+       "country": "destinationCityCountryName"
+    },
+    "maxHops": maxHops,       -- Optional, will use default if null
+    "maxResults": maxResults  -- Optional, will use default if null
+}
+```
+
+
+### Response JSON
+
+```
+{
+    "chains": [
+        {
+            "stops": [
+                {
+                    "embark": {
+                        "city": "sourceCityName",
+                        "country": "sourceCityCountryName",
+                        "airport": "sourceCityAirportName",
+                        "airportCode": "sourceCityAirportCode"
+                    },
+                    "disembark": {
+                        "city": "destinationCityName",
+                        "country": "destinationCityCountryName",
+                        "airport": "destinationCityAirportName",
+                        "airportCode": "destinationCityAirportCode"
+                    },
+                    "airlineCode": "airlineCode",
+                    "equipment": "equipment"
+                }
+            ],
+            "totalPrice": totalPrice, -- Total price of this chain
+            "hops": hops -- Hops in this chain
+        }
+    ],
+    "found": found -- Found route chains
+}
+```
+
+The results are ordered by the cheapest ascending.
 
 ## Developer comments
 
@@ -130,6 +227,7 @@ instead of "" when quoting inside encapsulated token (https://en.wikipedia.org/w
 Naming of the given airport.txt and route.txt has also been changed to airport.csv and route.csv since I added validation to importer.
 * Removed salt from user and used basic BCryptPasswordEncoder to save time
 * Used simple spring security basic auth, username & password sent with each request to save time
+* Use predefined users, admin/admin and user/user for convenience
 * Longitude and latitude in airport considered strings since they have no logical value in implementation
 * Code written with the highest emphasis to readability and maintainability since it is a challenge that is going to be reviewed by a person :)
 * I have tried to achieve at least happy case unit test coverage, but due to time constraints it is not as detailed and in depth as I usually prefer.
@@ -259,4 +357,4 @@ Rest API documentation is available VIA swagger.
 
 e.g. `http://localhost:8080/swagger-ui.html`
 
-# Last modified: 05.11.2020
+# Last modified: 07.11.2020
