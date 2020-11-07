@@ -27,7 +27,7 @@ public class FlightAdvisorSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/comments/**", "/flights/**").hasAnyRole(Role.ADMIN.name(), Role.USER.name())
+                .antMatchers("/cities/**", "/comments/**", "/flights/**").hasAnyRole(Role.ADMIN.name(), Role.USER.name())
                 .antMatchers("/admin/**").hasRole(Role.ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
