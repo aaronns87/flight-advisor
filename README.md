@@ -172,10 +172,12 @@ BODY
 ----
 {
     "source": {
+        "id": "sourceCityId", -- Either source city id must be provider or name+country
         "name": "sourceCityName",
         "country": "sourceCityCountryName"
     },
     "destination": {
+       "id": "destinationCityId", -- Either destination city id must be provider or name+country
        "name": "destinationCityName",
        "country": "destinationCityCountryName"
     },
