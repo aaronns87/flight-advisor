@@ -27,7 +27,6 @@ import javax.persistence.*;
                         "  total_price, " +
                         "  sources, " +
                         "  destinations, " +
-                        "  full_path, " +
                         "  routes, " +
                         "  hops " +
                         ") AS ( " +
@@ -37,7 +36,6 @@ import javax.persistence.*;
                         "          r.price AS total_price, " +
                         "          ARRAY[r.source_city_mapping] AS sources, " +
                         "          ARRAY[r.destination_city_mapping] AS destinations, " +
-                        "          ARRAY[array[r.source_city_mapping, r.destination_city_mapping]] AS full_path, " +
                         "          ARRAY[CAST(r.id AS text)] AS routes, " +
                         "          1 AS hops " +
                         "        FROM route AS r " +
@@ -50,7 +48,6 @@ import javax.persistence.*;
                         "          fc.total_price + r.price AS total_price, " +
                         "          sources || r.source_city_mapping AS sources, " +
                         "          destinations || r.destination_city_mapping AS destinations, " +
-                        "          full_path || ARRAY[r.source_city_mapping, r.destination_city_mapping] AS full_path, " +
                         "          routes || CAST(r.id AS text) AS routes, " +
                         "          fc.hops + 1 AS hops " +
                         "        FROM route AS r, flight_chain AS fc " +
