@@ -26,6 +26,8 @@ public class ImportController {
             description = "Import airports from airports CSV. Headers are not expected in CSV and column order is important! " +
                     "File parameter name is \"file\". Upload as form-data.")
     public void importAirports(@RequestParam("file") MultipartFile file) {
+        log.info("POST import airports, file name: {}.", file.getName());
+
         importService.importAirports(file);
     }
 
@@ -35,6 +37,8 @@ public class ImportController {
             description = "Import airports from routes CSV. Headers are not expected in CSV and column order is important! " +
                     "File parameter name is  \"file\". Upload as form-data.")
     public void importRoutes(@RequestParam("file") MultipartFile file) {
+        log.info("POST import routes, file name: {}.", file.getName());
+
         importService.importRoutes(file);
     }
 }
