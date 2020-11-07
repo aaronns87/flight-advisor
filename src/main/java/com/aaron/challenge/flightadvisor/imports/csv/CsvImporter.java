@@ -1,5 +1,6 @@
 package com.aaron.challenge.flightadvisor.imports.csv;
 
+import com.aaron.challenge.flightadvisor.config.error.imports.MissingImportFieldException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
@@ -81,6 +82,9 @@ public class CsvImporter {
     private RouteCsv tryMapRouteCsv(CSVRecord csvRecord) {
         try {
             return routeCsvMapper.mapFromCsv(csvRecord);
+        } catch (MissingImportFieldException e) {
+            log.warn("Unable to map route csv record {} due to missing import field {}", csvRecord.toString(), e.getMessage());
+            return null;
         } catch (Exception e) {
             log.warn("Unable to map route csv record {} due to error.", csvRecord.toString(), e);
             return null;

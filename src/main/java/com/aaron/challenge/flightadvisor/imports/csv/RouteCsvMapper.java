@@ -2,6 +2,7 @@ package com.aaron.challenge.flightadvisor.imports.csv;
 
 import com.aaron.challenge.flightadvisor.airlines.Airline;
 import com.aaron.challenge.flightadvisor.airports.Airport;
+import com.aaron.challenge.flightadvisor.config.error.imports.MissingImportFieldException;
 import com.aaron.challenge.flightadvisor.routes.Route;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
@@ -58,7 +59,7 @@ public class RouteCsvMapper {
         if (StringUtils.isNotBlank(sourceAirportId)) {
             return Long.parseLong(sourceAirportId);
         } else {
-            throw new IllegalStateException("Source airport id is not allowed to be null!");
+            throw new MissingImportFieldException("Source airport id is not allowed to be null!");
         }
     }
 
@@ -66,7 +67,7 @@ public class RouteCsvMapper {
         if (StringUtils.isNotBlank(destinationAirportId)) {
             return Long.parseLong(destinationAirportId);
         } else {
-            throw new IllegalStateException("Source airport id is not allowed to be null!");
+            throw new MissingImportFieldException("Source airport id is not allowed to be null!");
         }
     }
 
