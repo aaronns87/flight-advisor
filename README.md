@@ -80,7 +80,7 @@ Endpoints:
 
 * Routes: `POST /admin/import/routes`, multipart form data `file`, supported format `csv`, max size 4MB
 
-* NOTE: Import emphises data integrity and validity over speed. When importing airports cities are created, when importing routes, the airport data is validated, airlines are created etc. Route import can take a bit longer because of great number of records being imported.
+NOTE: Import emphises data integrity and validity over speed. When importing airports cities are created, when importing routes, the airport data is validated, airlines are created etc. Route import can take a bit longer because of great number of records being imported.
 
 ## The Cheapest flight SEARCH explanation
 
