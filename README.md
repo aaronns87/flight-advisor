@@ -80,6 +80,8 @@ Endpoints:
 
 * Routes: `POST /admin/import/routes`, multipart form data `file`, supported format `csv`, max size 4MB
 
+* NOTE: Import emphises data integrity and validity over speed. When importing airports cities are created, when importing routes, the airport data is validated, airlines are created etc. Route import can take a bit longer because of great number of records being imported.
+
 ## The Cheapest flight SEARCH explanation
 
 The entire algorithm for the cheapest flight search is performed via one SQL query which can be found 
@@ -359,4 +361,4 @@ Rest API documentation is available VIA swagger.
 
 e.g. `http://localhost:8080/swagger-ui.html`
 
-# Last modified: 07.11.2020
+# Last modified: 08.11.2020
